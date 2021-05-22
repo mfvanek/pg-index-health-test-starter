@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'signing'
+    id "com.github.spotbugs" version "4.7.1"
 }
 
 group 'io.github.mfvanek'
@@ -104,4 +105,20 @@ javadoc {
     if (JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
     }
+}
+
+spotbugsMain {
+    reports {
+        html.enabled = true
+    }
+}
+
+spotbugsTest {
+    reports {
+        html.enabled = true
+    }
+}
+
+spotbugs {
+    showProgress = true
 }

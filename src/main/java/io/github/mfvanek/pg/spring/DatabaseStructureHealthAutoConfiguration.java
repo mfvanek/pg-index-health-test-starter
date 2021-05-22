@@ -31,25 +31,25 @@ import javax.sql.DataSource;
 @AutoConfigureAfter({DataSourceAutoConfiguration.class})
 public class DatabaseStructureHealthAutoConfiguration {
 
-  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-  @Bean
-  @ConditionalOnBean(name = "dataSource")
-  @ConditionalOnMissingBean
-  public PgConnection pgConnection(@Qualifier("dataSource") DataSource dataSource) {
-    return PgConnectionImpl.ofPrimary(dataSource);
-  }
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Bean
+    @ConditionalOnBean(name = "dataSource")
+    @ConditionalOnMissingBean
+    public PgConnection pgConnection(@Qualifier("dataSource") DataSource dataSource) {
+        return PgConnectionImpl.ofPrimary(dataSource);
+    }
 
-  @Bean
-  @ConditionalOnBean(PgConnection.class)
-  @ConditionalOnMissingBean
-  public IndexesMaintenanceOnHost indexesMaintenance(PgConnection pgConnection) {
-    return new IndexMaintenanceOnHostImpl(pgConnection);
-  }
+    @Bean
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public IndexesMaintenanceOnHost indexesMaintenance(PgConnection pgConnection) {
+        return new IndexMaintenanceOnHostImpl(pgConnection);
+    }
 
-  @Bean
-  @ConditionalOnBean(PgConnection.class)
-  @ConditionalOnMissingBean
-  public TablesMaintenanceOnHost tablesMaintenance(PgConnection pgConnection) {
-    return new TablesMaintenanceOnHostImpl(pgConnection);
-  }
+    @Bean
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public TablesMaintenanceOnHost tablesMaintenance(PgConnection pgConnection) {
+        return new TablesMaintenanceOnHostImpl(pgConnection);
+    }
 }

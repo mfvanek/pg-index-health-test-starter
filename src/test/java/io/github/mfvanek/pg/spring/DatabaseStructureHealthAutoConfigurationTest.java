@@ -22,49 +22,59 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import javax.sql.DataSource;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DatabaseStructureHealthAutoConfigurationTest {
 
-  private final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
+    private final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
 
-  @Test
-  void withoutDataSource() {
-    this.contextRunner.withUserConfiguration(DatabaseStructureHealthAutoConfiguration.class)
-        .run(context -> {
-          assertThat(context).doesNotHaveBean("pgConnection");
-          assertThat(context).doesNotHaveBean("indexesMaintenance");
-          assertThat(context).doesNotHaveBean("tablesMaintenance");
-        });
-  }
+    @Test
+    void withoutDataSource() {
+        withTestConfig()
+                .run(context -> {
+                    assertThat(context).doesNotHaveBean("pgConnection");
+                    assertThat(context).doesNotHaveBean("indexesMaintenance");
+                    assertThat(context).doesNotHaveBean("tablesMaintenance");
+                });
+    }
 
-  @Test
-  void withDataSource() {
-    this.contextRunner.withUserConfiguration(DatabaseStructureHealthAutoConfiguration.class)
-        .withInitializer(ctx -> {
-          GenericApplicationContext context = (GenericApplicationContext) ctx;
-          context.registerBean("dataSource", DataSource.class, () -> Mockito.mock(DataSource.class));
-        })
-        .run(context -> {
-          assertThat(context).hasBean("pgConnection");
-          assertThat(context).hasBean("indexesMaintenance");
-          assertThat(context).hasBean("tablesMaintenance");
-        });
-  }
+    @Test
+    void withDataSource() {
+        withTestConfig()
+                .withInitializer(ctx -> {
+                    GenericApplicationContext context = (GenericApplicationContext) ctx;
+                    context.registerBean("dataSource", DataSource.class, () -> Mockito.mock(DataSource.class));
+                })
+                .run(context -> {
+                    assertThat(context).hasBean("pgConnection");
+                    assertThat(context).hasBean("indexesMaintenance");
+                    assertThat(context).hasBean("tablesMaintenance");
+                });
+    }
 
-  @ParameterizedTest
-  @ValueSource(classes = {PgConnection.class, IndexesMaintenanceOnHost.class, TablesMaintenanceOnHost.class})
-  void withoutClass(Class<?> type) {
-    this.contextRunner.withUserConfiguration(DatabaseStructureHealthAutoConfiguration.class)
-        .withInitializer(ctx -> {
-          GenericApplicationContext context = (GenericApplicationContext) ctx;
-          context.registerBean("dataSource", DataSource.class, () -> Mockito.mock(DataSource.class));
-        })
-        .withClassLoader(new FilteredClassLoader(type))
-        .run(context -> {
-          assertThat(context).doesNotHaveBean("pgConnection");
-          assertThat(context).doesNotHaveBean("indexesMaintenance");
-          assertThat(context).doesNotHaveBean("tablesMaintenance");
+    @ParameterizedTest
+    @ValueSource(classes = {PgConnection.class, IndexesMaintenanceOnHost.class, TablesMaintenanceOnHost.class})
+    void withoutClass(Class<?> type) {
+        AccessController.doPrivileged((PrivilegedAction<?>) () -> {
+            withTestConfig()
+                    .withInitializer(ctx -> {
+                        GenericApplicationContext context = (GenericApplicationContext) ctx;
+                        context.registerBean("dataSource", DataSource.class, () -> Mockito.mock(DataSource.class));
+                    })
+                    .withClassLoader(new FilteredClassLoader(type))
+                    .run(context -> {
+                        assertThat(context).doesNotHaveBean("pgConnection");
+                        assertThat(context).doesNotHaveBean("indexesMaintenance");
+                        assertThat(context).doesNotHaveBean("tablesMaintenance");
+                    });
+            return null;
         });
-  }
+    }
+
+    private ApplicationContextRunner withTestConfig() {
+        return contextRunner.withUserConfiguration(DatabaseStructureHealthAutoConfiguration.class);
+    }
 }
