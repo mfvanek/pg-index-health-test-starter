@@ -1,0 +1,107 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'signing'
+}
+
+group 'io.github.mfvanek'
+version '0.3.1-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter:2.4.5'
+    implementation 'io.github.mfvanek:pg-index-health:0.3.1'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": project.name,
+                "Implementation-Version": project.version)
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+
+            pom {
+                name = project.name
+                description = 'Spring Boot Starter for pg-index-health library'
+                url = 'https://github.com/mfvanek/pg-index-health-test-starter'
+                licenses {
+                    license {
+                        name = 'Apache License Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'mfvanek'
+                        name = 'Ivan Vakhrushev'
+                        email = 'mfvanek@gmail.com'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:https://github.com/mfvanek/pg-index-health-test-starter.git'
+                    developerConnection = 'scm:git@github.com:mfvanek/pg-index-health-test-starter.git'
+                    url = 'https://github.com/mfvanek/pg-index-health-test-starter'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username sonatypeUsername
+                password sonatypePassword
+            }
+        }
+    }
+}
+
+signing {
+    if (!version.endsWith('SNAPSHOT')) {
+        sign publishing.publications.mavenJava
+    }
+}
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
