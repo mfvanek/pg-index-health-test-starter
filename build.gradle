@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id "com.github.spotbugs" version "4.7.1"
+    id 'jacoco'
 }
 
 group 'io.github.mfvanek'
@@ -27,6 +28,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
 jar {
@@ -121,4 +123,12 @@ spotbugsTest {
 
 spotbugs {
     showProgress = true
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }
