@@ -13,6 +13,10 @@ import io.github.mfvanek.pg.connection.PgConnection;
 import io.github.mfvanek.pg.connection.PgConnectionImpl;
 import io.github.mfvanek.pg.index.maintenance.IndexMaintenanceOnHostImpl;
 import io.github.mfvanek.pg.index.maintenance.IndexesMaintenanceOnHost;
+import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHost;
+import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHostImpl;
+import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHost;
+import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHostImpl;
 import io.github.mfvanek.pg.table.maintenance.TablesMaintenanceOnHost;
 import io.github.mfvanek.pg.table.maintenance.TablesMaintenanceOnHostImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,12 +31,13 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnClass({DataSource.class, PgConnection.class, IndexesMaintenanceOnHost.class, TablesMaintenanceOnHost.class})
+@ConditionalOnClass(DataSource.class)
 @AutoConfigureAfter({DataSourceAutoConfiguration.class})
 public class DatabaseStructureHealthAutoConfiguration {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
+    @ConditionalOnClass(PgConnection.class)
     @ConditionalOnBean(name = "dataSource")
     @ConditionalOnMissingBean
     public PgConnection pgConnection(@Qualifier("dataSource") DataSource dataSource) {
@@ -40,6 +45,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnClass(IndexesMaintenanceOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
     public IndexesMaintenanceOnHost indexesMaintenance(PgConnection pgConnection) {
@@ -47,9 +53,26 @@ public class DatabaseStructureHealthAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnClass(TablesMaintenanceOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
     public TablesMaintenanceOnHost tablesMaintenance(PgConnection pgConnection) {
         return new TablesMaintenanceOnHostImpl(pgConnection);
+    }
+
+    @Bean
+    @ConditionalOnClass(StatisticsMaintenanceOnHost.class)
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public StatisticsMaintenanceOnHost statisticsMaintenance(PgConnection pgConnection) {
+        return new StatisticsMaintenanceOnHostImpl(pgConnection);
+    }
+
+    @Bean
+    @ConditionalOnClass(ConfigurationMaintenanceOnHost.class)
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public ConfigurationMaintenanceOnHost configurationMaintenance(PgConnection pgConnection) {
+        return new ConfigurationMaintenanceOnHostImpl(pgConnection);
     }
 }
