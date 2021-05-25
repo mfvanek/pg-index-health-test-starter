@@ -1,9 +1,9 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
     id 'signing'
-    id "com.github.spotbugs" version "4.7.1"
     id 'jacoco'
+    id "com.github.spotbugs" version "4.7.1"
 }
 
 group 'io.github.mfvanek'
@@ -17,13 +17,15 @@ repositories {
     mavenCentral()
 }
 
+def junitVersion = '5.7.2'
+def springVersion = '2.4.5'
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter:2.4.5'
-    implementation 'io.github.mfvanek:pg-index-health:0.3.1'
+    implementation "org.springframework.boot:spring-boot-starter:$springVersion"
+    api 'io.github.mfvanek:pg-index-health:0.3.1'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     testImplementation 'org.apache.commons:commons-text:1.9'
 }
 
