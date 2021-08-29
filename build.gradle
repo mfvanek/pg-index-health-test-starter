@@ -143,7 +143,6 @@ jacocoTestCoverageVerification {
     dependsOn test
     violationRules {
         rule {
-            element = 'BUNDLE'
             limit {
                 counter = 'CLASS'
                 value = 'MISSEDCOUNT'
@@ -151,7 +150,6 @@ jacocoTestCoverageVerification {
             }
         }
         rule {
-            element = 'BUNDLE'
             limit {
                 counter = 'METHOD'
                 value = 'MISSEDCOUNT'
@@ -159,7 +157,6 @@ jacocoTestCoverageVerification {
             }
         }
         rule {
-            element = 'BUNDLE'
             limit {
                 counter = 'INSTRUCTION'
                 value = 'COVEREDRATIO'
