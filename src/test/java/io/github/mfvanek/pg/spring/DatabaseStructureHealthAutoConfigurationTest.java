@@ -64,6 +64,26 @@ class DatabaseStructureHealthAutoConfigurationTest {
     }
 
     @Test
+    void shouldNotCreateAutoConfigurationWithDisabledProperty() {
+        withTestConfig()
+                .withPropertyValues("pg.index.health.test.enabled=false")
+                .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
+                .run(context ->
+                        ALL_BEAN_NAMES.forEach(beanName ->
+                                assertThat(context).doesNotHaveBean(beanName)));
+    }
+
+    @Test
+    void shouldCreateAutoConfigurationWhenPropertyExplicitlySet() {
+        withTestConfig()
+                .withPropertyValues("pg.index.health.test.enabled=true")
+                .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
+                .run(context ->
+                        ALL_BEAN_NAMES.forEach(beanName ->
+                                assertThat(context).hasBean(beanName)));
+    }
+
+    @Test
     void withoutPgConnectionClass() {
         AccessController.doPrivileged((PrivilegedAction<?>) () -> {
             withTestConfig()
