@@ -22,3 +22,10 @@ Using Maven:
   <scope>test</scope>
 </dependency>
 ```
+
+## Compatibility
+These versions have been tested together:
+
+| Spring Boot | pg-index-health-test-starter |
+|-------------|------------------------------|
+| 2.4.x       | 0.3.1.x                      |

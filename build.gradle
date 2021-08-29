@@ -22,6 +22,8 @@ def springVersion = '2.4.5'
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:$springVersion"
     api 'io.github.mfvanek:pg-index-health:0.3.1'
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:$springVersion"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
@@ -32,6 +34,7 @@ dependencies {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+    finalizedBy jacocoTestCoverageVerification
 }
 
 jar {
@@ -136,4 +139,32 @@ jacocoTestReport {
     }
 }
 
+jacocoTestCoverageVerification {
+    dependsOn test
+    violationRules {
+        rule {
+            limit {
+                counter = 'CLASS'
+                value = 'MISSEDCOUNT'
+                maximum = 0
+            }
+        }
+        rule {
+            limit {
+                counter = 'METHOD'
+                value = 'MISSEDCOUNT'
+                maximum = 0
+            }
+        }
+        rule {
+            limit {
+                counter = 'INSTRUCTION'
+                value = 'COVEREDRATIO'
+                minimum = 1.0
+            }
+        }
+    }
+}
+
 check.dependsOn jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
