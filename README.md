@@ -24,7 +24,10 @@ Using Maven:
 ```
 
 ## Compatibility
-These versions have been tested together:
+### Java versions
+Requires [Java 8](https://www.java.com/en/)
+
+### Spring Boot versions
 
 | Spring Boot | pg-index-health-test-starter |
 |-------------|------------------------------|

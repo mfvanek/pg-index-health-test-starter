@@ -11,6 +11,12 @@ package io.github.mfvanek.pg.spring;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Represents properties for managing pg-index-health-test-starter configuration.
+ *
+ * @author Ivan Vakhrushev
+ * @since 2021.08.29
+ */
 @ConfigurationProperties(prefix = "pg.index.health.test")
 public class DatabaseStructureHealthProperties {
 

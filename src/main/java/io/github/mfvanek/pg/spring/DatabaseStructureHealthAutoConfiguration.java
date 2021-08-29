@@ -32,6 +32,12 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+/**
+ * Autoconfiguration for using pg-index-health in unit tests.
+ *
+ * @author Ivan Vakhrushev
+ * @since 2021.05.22
+ */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(DatabaseStructureHealthProperties.class)
 @ConditionalOnClass(DataSource.class)
