@@ -24,14 +24,14 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
-import javax.annotation.Nonnull;
-import javax.sql.DataSource;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.annotation.Nonnull;
+import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -98,10 +98,10 @@ class DatabaseStructureHealthAutoConfigurationTest {
 
     @ParameterizedTest
     @ValueSource(classes = {
-            IndexesMaintenanceOnHost.class,
-            TablesMaintenanceOnHost.class,
-            StatisticsMaintenanceOnHost.class,
-            ConfigurationMaintenanceOnHost.class})
+        IndexesMaintenanceOnHost.class,
+        TablesMaintenanceOnHost.class,
+        StatisticsMaintenanceOnHost.class,
+        ConfigurationMaintenanceOnHost.class})
     void withoutClass(Class<?> type) {
         AccessController.doPrivileged((PrivilegedAction<?>) () -> {
             withTestConfig()
