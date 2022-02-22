@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id 'jacoco'
-    id "com.github.spotbugs" version "4.7.1"
+    id 'com.github.spotbugs' version '5.0.6'
     id 'checkstyle'
 }
 
@@ -18,11 +18,11 @@ repositories {
     mavenCentral()
 }
 
-def junitVersion = '5.8.1'
-def springVersion = '2.4.5'
+def junitVersion = '5.8.2'
+def springVersion = '2.4.13'
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:$springVersion"
-    api 'io.github.mfvanek:pg-index-health:0.3.2'
+    api 'io.github.mfvanek:pg-index-health:0.4.0'
     annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:$springVersion"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
 
