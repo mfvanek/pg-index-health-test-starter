@@ -5,9 +5,6 @@ on:
         branches:
             - master
     pull_request:
-    pull_request_target:
-        branches:
-            - master
 
 jobs:
     build:
@@ -17,21 +14,32 @@ jobs:
         runs-on: ${{ matrix.os }}
         steps:
             -   name: Checkout
-                if: ${{ github.event_name != 'pull_request_target' }}
-                uses: actions/checkout@v3
-            -   name: Checkout PR
-                if: ${{ github.event_name == 'pull_request_target' }}
                 uses: actions/checkout@v3
                 with:
-                    ref: ${{ github.event.pull_request.head.sha }}
+                    fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
             -   name: Set up JDK 8
                 uses: actions/setup-java@v2
                 with:
                     distribution: 'adopt-hotspot'
-                    java-version: '8.0'
+                    java-version: '11'
                     cache: 'gradle'
-            -   name: Build with Gradle
-                run: ./gradlew build
+            -   name: Cache SonarCloud packages
+                uses: actions/cache@v1
+                with:
+                    path: ~/.sonar/cache
+                    key: ${{ runner.os }}-sonar
+                    restore-keys: ${{ runner.os }}-sonar
+            -   name: Cache Gradle packages
+                uses: actions/cache@v1
+                with:
+                    path: ~/.gradle/caches
+                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+                    restore-keys: ${{ runner.os }}-gradle
+            -   name: Build with Gradle and analyze
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+                    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                run: ./gradlew build sonarqube --info
             -   name: Upload coverage to Codecov
                 uses: codecov/codecov-action@v1
                 with:
