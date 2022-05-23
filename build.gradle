@@ -5,6 +5,7 @@ plugins {
     id 'jacoco'
     id 'com.github.spotbugs' version '5.0.6'
     id 'checkstyle'
+    id 'org.sonarqube' version '3.3'
 }
 
 group 'io.github.mfvanek'
@@ -184,3 +185,11 @@ checkstyleTest {
 
 check.dependsOn jacocoTestReport
 check.dependsOn jacocoTestCoverageVerification
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "mfvanek_pg-index-health-test-starter"
+        property "sonar.organization", "mfvanek"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
