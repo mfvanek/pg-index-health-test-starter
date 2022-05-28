@@ -11,8 +11,12 @@ plugins {
 group 'io.github.mfvanek'
 version '0.4.1-SNAPSHOT'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    withJavadocJar()
+    withSourcesJar()
+}
 
 repositories {
     mavenLocal()
@@ -45,11 +49,6 @@ jar {
         attributes("Implementation-Title": project.name,
                 "Implementation-Version": project.version)
     }
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
 }
 
 publishing {
@@ -155,6 +154,13 @@ jacocoTestCoverageVerification {
         rule {
             limit {
                 counter = 'METHOD'
+                value = 'MISSEDCOUNT'
+                maximum = 0
+            }
+        }
+        rule {
+            limit {
+                counter = 'LINE'
                 value = 'MISSEDCOUNT'
                 maximum = 0
             }
