@@ -5,6 +5,7 @@ plugins {
     id 'jacoco'
     id 'com.github.spotbugs' version '5.0.6'
     id 'checkstyle'
+    id 'pmd'
     id 'org.sonarqube' version '3.3'
 }
 
@@ -191,6 +192,13 @@ checkstyleTest {
 
 check.dependsOn jacocoTestReport
 check.dependsOn jacocoTestCoverageVerification
+
+pmd {
+    consoleOutput = true
+    toolVersion = "6.42.0"
+    ruleSetFiles = files("config/pmd/pmd.xml")
+    ruleSets = []
+}
 
 sonarqube {
     properties {

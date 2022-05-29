@@ -102,7 +102,7 @@ class DatabaseStructureHealthAutoConfigurationTest {
         TablesMaintenanceOnHost.class,
         StatisticsMaintenanceOnHost.class,
         ConfigurationMaintenanceOnHost.class})
-    void withoutClass(Class<?> type) {
+    void withoutClass(final Class<?> type) {
         AccessController.doPrivileged((PrivilegedAction<?>) () -> {
             withTestConfig()
                     .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
@@ -127,13 +127,13 @@ class DatabaseStructureHealthAutoConfigurationTest {
         return contextRunner.withUserConfiguration(DatabaseStructureHealthAutoConfiguration.class);
     }
 
-    private static <C extends ConfigurableApplicationContext> void initialize(@Nonnull C applicationContext) {
-        GenericApplicationContext context = (GenericApplicationContext) applicationContext;
+    private static <C extends ConfigurableApplicationContext> void initialize(@Nonnull final C applicationContext) {
+        final GenericApplicationContext context = (GenericApplicationContext) applicationContext;
         context.registerBean("dataSource", DataSource.class, () -> Mockito.mock(DataSource.class));
     }
 
     @Nonnull
-    private static String getBeanName(@Nonnull Class<?> type) {
+    private static String getBeanName(@Nonnull final Class<?> type) {
         final String className = WordUtils.uncapitalize(type.getSimpleName());
         return className.substring(0, className.length() - "OnHost".length());
     }

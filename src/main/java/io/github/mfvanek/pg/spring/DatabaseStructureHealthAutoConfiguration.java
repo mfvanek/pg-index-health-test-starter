@@ -49,7 +49,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(PgConnection.class)
     @ConditionalOnBean(name = "dataSource")
     @ConditionalOnMissingBean
-    public PgConnection pgConnection(@Qualifier("dataSource") DataSource dataSource) {
+    public PgConnection pgConnection(@Qualifier("dataSource") final DataSource dataSource) {
         return PgConnectionImpl.ofPrimary(dataSource);
     }
 
@@ -57,7 +57,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(IndexesMaintenanceOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public IndexesMaintenanceOnHost indexesMaintenance(PgConnection pgConnection) {
+    public IndexesMaintenanceOnHost indexesMaintenance(final PgConnection pgConnection) {
         return new IndexMaintenanceOnHostImpl(pgConnection);
     }
 
@@ -65,7 +65,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(TablesMaintenanceOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public TablesMaintenanceOnHost tablesMaintenance(PgConnection pgConnection) {
+    public TablesMaintenanceOnHost tablesMaintenance(final PgConnection pgConnection) {
         return new TablesMaintenanceOnHostImpl(pgConnection);
     }
 
@@ -73,7 +73,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(StatisticsMaintenanceOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public StatisticsMaintenanceOnHost statisticsMaintenance(PgConnection pgConnection) {
+    public StatisticsMaintenanceOnHost statisticsMaintenance(final PgConnection pgConnection) {
         return new StatisticsMaintenanceOnHostImpl(pgConnection);
     }
 
@@ -81,7 +81,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(ConfigurationMaintenanceOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public ConfigurationMaintenanceOnHost configurationMaintenance(PgConnection pgConnection) {
+    public ConfigurationMaintenanceOnHost configurationMaintenance(final PgConnection pgConnection) {
         return new ConfigurationMaintenanceOnHostImpl(pgConnection);
     }
 }

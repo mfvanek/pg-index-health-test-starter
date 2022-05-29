@@ -20,13 +20,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "pg.index.health.test")
 public class DatabaseStructureHealthProperties {
 
+    /**
+     * Allows to manually disable starter even it presents on classpath.
+     */
     private boolean enabled = true;
 
     public boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(final boolean enabled) {
         this.enabled = enabled;
     }
 }

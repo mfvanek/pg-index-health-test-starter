@@ -17,7 +17,7 @@ class DatabaseStructureHealthPropertiesTest {
 
     @Test
     void getterAndSetterShouldWork() {
-        DatabaseStructureHealthProperties properties = new DatabaseStructureHealthProperties();
+        final DatabaseStructureHealthProperties properties = new DatabaseStructureHealthProperties();
         assertThat(properties.isEnabled()).isTrue(); // default value
 
         properties.setEnabled(false);
