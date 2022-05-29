@@ -8,6 +8,14 @@
     <rule ref="category/java/bestpractices.xml">
         <exclude name="JUnitTestsShouldIncludeAssert" />
         <exclude name="JUnitTestContainsTooManyAsserts" />
+        <exclude name="JUnitAssertionsShouldIncludeMessage" />
+        <exclude name="GuardLogStatement" />
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/AbstractClassWithoutAbstractMethod">
+        <properties>
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration['.*TestBase']"/>
+        </properties>
     </rule>
 
     <rule ref="category/java/codestyle.xml">
@@ -31,7 +39,7 @@
 
     <rule ref="category/java/codestyle.xml/LinguisticNaming" >
         <properties>
-            <property name="checkSetters" value="false" />t. -->
+            <property name="checkSetters" value="false" />
             <property name="violationSuppressXPath" value="//ClassOrInterfaceBodyDeclaration/Annotation/MarkerAnnotation//Name[@Image='Test']" />
         </properties>
     </rule>
@@ -45,6 +53,14 @@
     <rule ref="category/java/design.xml">
         <exclude name="LawOfDemeter" />
         <exclude name="LoosePackageCoupling" />
+        <exclude name="AvoidCatchingGenericException" />
+        <exclude name="UseUtilityClass" />
+    </rule>
+
+    <rule ref="category/java/design.xml/AbstractClassWithoutAnyMethod">
+        <properties>
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration['.*TestBase']"/>
+        </properties>
     </rule>
 
     <rule ref="category/java/documentation.xml">
@@ -57,8 +73,6 @@
     <rule ref="category/java/performance.xml"/>
 
     <rule ref="category/java/security.xml"/>
-
-    <rule ref="rulesets/java/quickstart.xml"/>
 
     <rule ref="category/java/errorprone.xml">
         <exclude name="BeanMembersShouldSerialize"/>
