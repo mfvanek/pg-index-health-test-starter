@@ -38,4 +38,5 @@ Requires [Java 8](https://www.java.com/en/)
 | Spring Boot | pg-index-health-test-starter |
 |-------------|------------------------------|
 | 2.4.x       | 0.3.x                        |
-| 2.4.x       | 0.4.0                        |
+| 2.4.x       | 0.4.x                        |
+| 2.5.x       | 0.5.x                        |
