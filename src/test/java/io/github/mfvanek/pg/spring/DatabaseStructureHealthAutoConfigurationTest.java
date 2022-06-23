@@ -9,11 +9,19 @@
 
 package io.github.mfvanek.pg.spring;
 
+import io.github.mfvanek.pg.checks.host.DuplicatedIndexesCheckOnHost;
+import io.github.mfvanek.pg.checks.host.ForeignKeysNotCoveredWithIndexCheckOnHost;
+import io.github.mfvanek.pg.checks.host.IndexesWithBloatCheckOnHost;
+import io.github.mfvanek.pg.checks.host.IndexesWithNullValuesCheckOnHost;
+import io.github.mfvanek.pg.checks.host.IntersectedIndexesCheckOnHost;
+import io.github.mfvanek.pg.checks.host.InvalidIndexesCheckOnHost;
+import io.github.mfvanek.pg.checks.host.TablesWithBloatCheckOnHost;
+import io.github.mfvanek.pg.checks.host.TablesWithMissingIndexesCheckOnHost;
+import io.github.mfvanek.pg.checks.host.TablesWithoutPrimaryKeyCheckOnHost;
+import io.github.mfvanek.pg.checks.host.UnusedIndexesCheckOnHost;
 import io.github.mfvanek.pg.connection.PgConnection;
-import io.github.mfvanek.pg.index.maintenance.IndexesMaintenanceOnHost;
 import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHost;
 import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHost;
-import io.github.mfvanek.pg.table.maintenance.TablesMaintenanceOnHost;
 import org.apache.commons.text.WordUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,78 +46,88 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DatabaseStructureHealthAutoConfigurationTest {
 
     private static final Set<String> ALL_BEAN_NAMES = Collections.unmodifiableSet(
-            Stream.of("pgConnection", "indexesMaintenance", "tablesMaintenance", "statisticsMaintenance", "configurationMaintenance")
-                    .collect(Collectors.toSet()));
-    private static final Set<String> MAIN_BEAN_NAMES = Collections.unmodifiableSet(
-            Stream.of("indexesMaintenance", "tablesMaintenance", "statisticsMaintenance", "configurationMaintenance")
-                    .collect(Collectors.toSet()));
+        Stream.of("pgConnection", "duplicatedIndexesCheck", "foreignKeysNotCoveredWithIndexCheck", "indexesWithBloatCheck",
+                "indexesWithNullValuesCheck", "intersectedIndexesCheck", "invalidIndexesCheck", "tablesWithBloatCheck",
+                "tablesWithMissingIndexesCheck", "tablesWithoutPrimaryKeyCheck", "unusedIndexesCheck",
+                "statisticsMaintenance", "configurationMaintenance")
+            .collect(Collectors.toSet()));
 
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
 
     @Test
     void withoutDataSource() {
         withTestConfig()
-                .run(context ->
-                        ALL_BEAN_NAMES.forEach(beanName ->
-                                assertThat(context).doesNotHaveBean(beanName)));
+            .run(context ->
+                ALL_BEAN_NAMES.forEach(beanName ->
+                    assertThat(context).doesNotHaveBean(beanName)));
     }
 
     @Test
     void withDataSource() {
         withTestConfig()
-                .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
-                .run(context ->
-                        ALL_BEAN_NAMES.forEach(beanName ->
-                                assertThat(context).hasBean(beanName)));
+            .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
+            .run(context ->
+                ALL_BEAN_NAMES.forEach(beanName ->
+                    assertThat(context).hasBean(beanName)));
     }
 
     @Test
     void shouldNotCreateAutoConfigurationWithDisabledProperty() {
         withTestConfig()
-                .withPropertyValues("pg.index.health.test.enabled=false")
-                .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
-                .run(context ->
-                        ALL_BEAN_NAMES.forEach(beanName ->
-                                assertThat(context).doesNotHaveBean(beanName)));
+            .withPropertyValues("pg.index.health.test.enabled=false")
+            .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
+            .run(context ->
+                ALL_BEAN_NAMES.forEach(beanName ->
+                    assertThat(context).doesNotHaveBean(beanName)));
     }
 
     @Test
     void shouldCreateAutoConfigurationWhenPropertyExplicitlySet() {
         withTestConfig()
-                .withPropertyValues("pg.index.health.test.enabled=true")
-                .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
-                .run(context ->
-                        ALL_BEAN_NAMES.forEach(beanName ->
-                                assertThat(context).hasBean(beanName)));
+            .withPropertyValues("pg.index.health.test.enabled=true")
+            .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
+            .run(context ->
+                ALL_BEAN_NAMES.forEach(beanName ->
+                    assertThat(context).hasBean(beanName)));
     }
 
     @Test
     void withoutPgConnectionClass() {
         AccessController.doPrivileged((PrivilegedAction<?>) () -> {
             withTestConfig()
-                    .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
-                    .withClassLoader(new FilteredClassLoader(PgConnection.class))
-                    .run(context ->
-                            ALL_BEAN_NAMES.forEach(beanName ->
-                                    assertThat(context).doesNotHaveBean(beanName)));
+                .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
+                .withClassLoader(new FilteredClassLoader(PgConnection.class))
+                .run(context ->
+                    ALL_BEAN_NAMES.forEach(beanName ->
+                        assertThat(context).doesNotHaveBean(beanName)));
             return null;
         });
     }
 
     @ParameterizedTest
     @ValueSource(classes = {
-        IndexesMaintenanceOnHost.class,
-        TablesMaintenanceOnHost.class,
+        DuplicatedIndexesCheckOnHost.class,
+        ForeignKeysNotCoveredWithIndexCheckOnHost.class,
+        IndexesWithBloatCheckOnHost.class,
+        IndexesWithNullValuesCheckOnHost.class,
+        IntersectedIndexesCheckOnHost.class,
+        InvalidIndexesCheckOnHost.class,
+        TablesWithBloatCheckOnHost.class,
+        TablesWithMissingIndexesCheckOnHost.class,
+        TablesWithoutPrimaryKeyCheckOnHost.class,
+        UnusedIndexesCheckOnHost.class,
         StatisticsMaintenanceOnHost.class,
         ConfigurationMaintenanceOnHost.class})
     void withoutClass(final Class<?> type) {
         AccessController.doPrivileged((PrivilegedAction<?>) () -> {
             withTestConfig()
-                    .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
-                    .withClassLoader(new FilteredClassLoader(type))
-                    .run(context -> {
-                        assertThat(context).hasBean("pgConnection");
-                        MAIN_BEAN_NAMES.forEach(beanName -> {
+                .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
+                .withClassLoader(new FilteredClassLoader(type))
+                .run(context -> {
+                    assertThat(context).hasBean("pgConnection");
+                    ALL_BEAN_NAMES.stream()
+                        .filter(n -> !"pgConnection".equals(n))
+                        .forEach(beanName -> {
                             final String beanNameByType = getBeanName(type);
                             if (beanName.equals(beanNameByType)) {
                                 assertThat(context).doesNotHaveBean(beanName);
@@ -117,7 +135,7 @@ class DatabaseStructureHealthAutoConfigurationTest {
                                 assertThat(context).hasBean(beanName);
                             }
                         });
-                    });
+                });
             return null;
         });
     }

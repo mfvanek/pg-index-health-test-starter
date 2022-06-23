@@ -10,6 +10,7 @@
 package io.github.mfvanek.pg.spring;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
 /**
  * Represents properties for managing pg-index-health-test-starter configuration.
@@ -17,19 +18,20 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author Ivan Vakhrushev
  * @since 2021.08.29
  */
+@ConstructorBinding
 @ConfigurationProperties(prefix = "pg.index.health.test")
 public class DatabaseStructureHealthProperties {
 
     /**
      * Allows to manually disable starter even it presents on classpath.
      */
-    private boolean enabled = true;
+    private final boolean enabled;
+
+    public DatabaseStructureHealthProperties(final boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public boolean isEnabled() {
         return enabled;
-    }
-
-    public void setEnabled(final boolean enabled) {
-        this.enabled = enabled;
     }
 }
