@@ -9,6 +9,7 @@
 
 package io.github.mfvanek.pg.spring;
 
+import io.github.mfvanek.pg.checks.host.ColumnsWithoutDescriptionCheckOnHost;
 import io.github.mfvanek.pg.checks.host.DuplicatedIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ForeignKeysNotCoveredWithIndexCheckOnHost;
 import io.github.mfvanek.pg.checks.host.IndexesWithBloatCheckOnHost;
@@ -17,6 +18,7 @@ import io.github.mfvanek.pg.checks.host.IntersectedIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.InvalidIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithBloatCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithMissingIndexesCheckOnHost;
+import io.github.mfvanek.pg.checks.host.TablesWithoutDescriptionCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithoutPrimaryKeyCheckOnHost;
 import io.github.mfvanek.pg.checks.host.UnusedIndexesCheckOnHost;
 import io.github.mfvanek.pg.connection.PgConnection;
@@ -137,6 +139,22 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnMissingBean
     public UnusedIndexesCheckOnHost unusedIndexesCheck(final PgConnection pgConnection) {
         return new UnusedIndexesCheckOnHost(pgConnection);
+    }
+
+    @Bean
+    @ConditionalOnClass(TablesWithoutDescriptionCheckOnHost.class)
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public TablesWithoutDescriptionCheckOnHost tablesWithoutDescriptionCheck(final PgConnection pgConnection) {
+        return new TablesWithoutDescriptionCheckOnHost(pgConnection);
+    }
+
+    @Bean
+    @ConditionalOnClass(ColumnsWithoutDescriptionCheckOnHost.class)
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public ColumnsWithoutDescriptionCheckOnHost columnsWithoutDescriptionCheck(final PgConnection pgConnection) {
+        return new ColumnsWithoutDescriptionCheckOnHost(pgConnection);
     }
 
     @Bean
