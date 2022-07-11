@@ -65,7 +65,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(DuplicatedIndexesCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public DuplicatedIndexesCheckOnHost duplicatedIndexesCheck(final PgConnection pgConnection) {
+    public DuplicatedIndexesCheckOnHost duplicatedIndexesCheckOnHost(final PgConnection pgConnection) {
         return new DuplicatedIndexesCheckOnHost(pgConnection);
     }
 
@@ -73,7 +73,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(ForeignKeysNotCoveredWithIndexCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public ForeignKeysNotCoveredWithIndexCheckOnHost foreignKeysNotCoveredWithIndexCheck(final PgConnection pgConnection) {
+    public ForeignKeysNotCoveredWithIndexCheckOnHost foreignKeysNotCoveredWithIndexCheckOnHost(final PgConnection pgConnection) {
         return new ForeignKeysNotCoveredWithIndexCheckOnHost(pgConnection);
     }
 
@@ -81,7 +81,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(IndexesWithBloatCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public IndexesWithBloatCheckOnHost indexesWithBloatCheck(final PgConnection pgConnection) {
+    public IndexesWithBloatCheckOnHost indexesWithBloatCheckOnHost(final PgConnection pgConnection) {
         return new IndexesWithBloatCheckOnHost(pgConnection);
     }
 
@@ -89,7 +89,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(IndexesWithNullValuesCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public IndexesWithNullValuesCheckOnHost indexesWithNullValuesCheck(final PgConnection pgConnection) {
+    public IndexesWithNullValuesCheckOnHost indexesWithNullValuesCheckOnHost(final PgConnection pgConnection) {
         return new IndexesWithNullValuesCheckOnHost(pgConnection);
     }
 
@@ -97,7 +97,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(IntersectedIndexesCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public IntersectedIndexesCheckOnHost intersectedIndexesCheck(final PgConnection pgConnection) {
+    public IntersectedIndexesCheckOnHost intersectedIndexesCheckOnHost(final PgConnection pgConnection) {
         return new IntersectedIndexesCheckOnHost(pgConnection);
     }
 
@@ -105,7 +105,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(InvalidIndexesCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public InvalidIndexesCheckOnHost invalidIndexesCheck(final PgConnection pgConnection) {
+    public InvalidIndexesCheckOnHost invalidIndexesCheckOnHost(final PgConnection pgConnection) {
         return new InvalidIndexesCheckOnHost(pgConnection);
     }
 
@@ -113,7 +113,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(TablesWithBloatCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public TablesWithBloatCheckOnHost tablesWithBloatCheck(final PgConnection pgConnection) {
+    public TablesWithBloatCheckOnHost tablesWithBloatCheckOnHost(final PgConnection pgConnection) {
         return new TablesWithBloatCheckOnHost(pgConnection);
     }
 
@@ -121,7 +121,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(TablesWithMissingIndexesCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public TablesWithMissingIndexesCheckOnHost tablesWithMissingIndexesCheck(final PgConnection pgConnection) {
+    public TablesWithMissingIndexesCheckOnHost tablesWithMissingIndexesCheckOnHost(final PgConnection pgConnection) {
         return new TablesWithMissingIndexesCheckOnHost(pgConnection);
     }
 
@@ -129,7 +129,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(TablesWithoutPrimaryKeyCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public TablesWithoutPrimaryKeyCheckOnHost tablesWithoutPrimaryKeyCheck(final PgConnection pgConnection) {
+    public TablesWithoutPrimaryKeyCheckOnHost tablesWithoutPrimaryKeyCheckOnHost(final PgConnection pgConnection) {
         return new TablesWithoutPrimaryKeyCheckOnHost(pgConnection);
     }
 
@@ -137,7 +137,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(UnusedIndexesCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public UnusedIndexesCheckOnHost unusedIndexesCheck(final PgConnection pgConnection) {
+    public UnusedIndexesCheckOnHost unusedIndexesCheckOnHost(final PgConnection pgConnection) {
         return new UnusedIndexesCheckOnHost(pgConnection);
     }
 
@@ -145,7 +145,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(TablesWithoutDescriptionCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public TablesWithoutDescriptionCheckOnHost tablesWithoutDescriptionCheck(final PgConnection pgConnection) {
+    public TablesWithoutDescriptionCheckOnHost tablesWithoutDescriptionCheckOnHost(final PgConnection pgConnection) {
         return new TablesWithoutDescriptionCheckOnHost(pgConnection);
     }
 
@@ -153,7 +153,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(ColumnsWithoutDescriptionCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public ColumnsWithoutDescriptionCheckOnHost columnsWithoutDescriptionCheck(final PgConnection pgConnection) {
+    public ColumnsWithoutDescriptionCheckOnHost columnsWithoutDescriptionCheckOnHost(final PgConnection pgConnection) {
         return new ColumnsWithoutDescriptionCheckOnHost(pgConnection);
     }
 
@@ -161,7 +161,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(StatisticsMaintenanceOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public StatisticsMaintenanceOnHost statisticsMaintenance(final PgConnection pgConnection) {
+    public StatisticsMaintenanceOnHost statisticsMaintenanceOnHost(final PgConnection pgConnection) {
         return new StatisticsMaintenanceOnHostImpl(pgConnection);
     }
 
@@ -169,7 +169,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(ConfigurationMaintenanceOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
-    public ConfigurationMaintenanceOnHost configurationMaintenance(final PgConnection pgConnection) {
+    public ConfigurationMaintenanceOnHost configurationMaintenanceOnHost(final PgConnection pgConnection) {
         return new ConfigurationMaintenanceOnHostImpl(pgConnection);
     }
 }

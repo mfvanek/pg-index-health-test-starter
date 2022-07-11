@@ -68,20 +68,20 @@ class DatabaseStructureHealthAutoConfigurationTest {
                 .hasSize(15)
                 .containsExactlyInAnyOrder(
                     "pgConnection",
-                    "duplicatedIndexesCheck",
-                    "foreignKeysNotCoveredWithIndexCheck",
-                    "indexesWithBloatCheck",
-                    "indexesWithNullValuesCheck",
-                    "intersectedIndexesCheck",
-                    "invalidIndexesCheck",
-                    "tablesWithBloatCheck",
-                    "tablesWithMissingIndexesCheck",
-                    "tablesWithoutPrimaryKeyCheck",
-                    "unusedIndexesCheck",
-                    "tablesWithoutDescriptionCheck",
-                    "columnsWithoutDescriptionCheck",
-                    "statisticsMaintenance",
-                    "configurationMaintenance"));
+                    "duplicatedIndexesCheckOnHost",
+                    "foreignKeysNotCoveredWithIndexCheckOnHost",
+                    "indexesWithBloatCheckOnHost",
+                    "indexesWithNullValuesCheckOnHost",
+                    "intersectedIndexesCheckOnHost",
+                    "invalidIndexesCheckOnHost",
+                    "tablesWithBloatCheckOnHost",
+                    "tablesWithMissingIndexesCheckOnHost",
+                    "tablesWithoutPrimaryKeyCheckOnHost",
+                    "unusedIndexesCheckOnHost",
+                    "tablesWithoutDescriptionCheckOnHost",
+                    "columnsWithoutDescriptionCheckOnHost",
+                    "statisticsMaintenanceOnHost",
+                    "configurationMaintenanceOnHost"));
     }
 
     @Test
@@ -164,7 +164,6 @@ class DatabaseStructureHealthAutoConfigurationTest {
 
     @Nonnull
     private static String getBeanName(@Nonnull final Class<?> type) {
-        final String className = WordUtils.uncapitalize(type.getSimpleName());
-        return className.substring(0, className.length() - "OnHost".length());
+        return WordUtils.uncapitalize(type.getSimpleName());
     }
 }
