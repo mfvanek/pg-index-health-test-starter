@@ -44,7 +44,7 @@ import javax.sql.DataSource;
  * Autoconfiguration for using pg-index-health in unit tests.
  *
  * @author Ivan Vakhrushev
- * @since 2021.05.22
+ * @since 0.3.1
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(DatabaseStructureHealthProperties.class)
