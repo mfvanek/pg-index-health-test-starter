@@ -16,11 +16,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DatabaseStructureHealthPropertiesTest {
 
     @Test
-    void getterAndSetterShouldWork() {
-        final DatabaseStructureHealthProperties properties = new DatabaseStructureHealthProperties();
-        assertThat(properties.isEnabled()).isTrue(); // default value
+    void getterShouldWork() {
+        final DatabaseStructureHealthProperties propertiesEnabled = new DatabaseStructureHealthProperties(true);
+        assertThat(propertiesEnabled.isEnabled())
+            .isTrue();
 
-        properties.setEnabled(false);
-        assertThat(properties.isEnabled()).isFalse();
+        final DatabaseStructureHealthProperties propertiesDisabled = new DatabaseStructureHealthProperties(false);
+        assertThat(propertiesDisabled.isEnabled())
+            .isFalse();
     }
 }
