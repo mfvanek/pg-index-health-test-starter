@@ -36,13 +36,16 @@ import org.springframework.context.support.GenericApplicationContext;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
-@SuppressWarnings({"PMD.JUnitTestsShouldIncludeAssert"})
 class DatabaseStructureHealthAutoConfigurationTest {
 
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
@@ -50,9 +53,27 @@ class DatabaseStructureHealthAutoConfigurationTest {
     private final Predicate<String> beanNamesFilter = b -> !b.startsWith("org.springframework") && !b.startsWith("pg.index.health.test") &&
         !b.endsWith("AutoConfiguration") && !"dataSource".equals(b);
 
+    private static final List<String> EXPECTED_BEANS = Collections.unmodifiableList(Arrays.asList(
+        "pgConnection",
+        "duplicatedIndexesCheckOnHost",
+        "foreignKeysNotCoveredWithIndexCheckOnHost",
+        "indexesWithBloatCheckOnHost",
+        "indexesWithNullValuesCheckOnHost",
+        "intersectedIndexesCheckOnHost",
+        "invalidIndexesCheckOnHost",
+        "tablesWithBloatCheckOnHost",
+        "tablesWithMissingIndexesCheckOnHost",
+        "tablesWithoutPrimaryKeyCheckOnHost",
+        "unusedIndexesCheckOnHost",
+        "tablesWithoutDescriptionCheckOnHost",
+        "columnsWithoutDescriptionCheckOnHost",
+        "statisticsMaintenanceOnHost",
+        "configurationMaintenanceOnHost"
+    ));
+
     @Test
     void withoutDataSource() {
-        withTestConfig()
+        assertWithTestConfig()
             .run(context -> assertThat(context.getBeanDefinitionNames())
                 .isNotEmpty()
                 .filteredOn(beanNamesFilter)
@@ -61,32 +82,23 @@ class DatabaseStructureHealthAutoConfigurationTest {
 
     @Test
     void withDataSource() {
-        withTestConfig()
+        assertWithTestConfig()
             .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
-            .run(context -> assertThat(context.getBeanDefinitionNames())
-                .filteredOn(beanNamesFilter)
-                .hasSize(15)
-                .containsExactlyInAnyOrder(
-                    "pgConnection",
-                    "duplicatedIndexesCheckOnHost",
-                    "foreignKeysNotCoveredWithIndexCheckOnHost",
-                    "indexesWithBloatCheckOnHost",
-                    "indexesWithNullValuesCheckOnHost",
-                    "intersectedIndexesCheckOnHost",
-                    "invalidIndexesCheckOnHost",
-                    "tablesWithBloatCheckOnHost",
-                    "tablesWithMissingIndexesCheckOnHost",
-                    "tablesWithoutPrimaryKeyCheckOnHost",
-                    "unusedIndexesCheckOnHost",
-                    "tablesWithoutDescriptionCheckOnHost",
-                    "columnsWithoutDescriptionCheckOnHost",
-                    "statisticsMaintenanceOnHost",
-                    "configurationMaintenanceOnHost"));
+            .run(context -> {
+                assertThat(context.getBeanDefinitionNames())
+                    .filteredOn(beanNamesFilter)
+                    .hasSize(15)
+                    .containsAll(EXPECTED_BEANS);
+                EXPECTED_BEANS.forEach(n ->
+                    assertThat(context.getBean(n))
+                        .isNotNull()
+                );
+            });
     }
 
     @Test
     void shouldNotCreateAutoConfigurationWithDisabledProperty() {
-        withTestConfig()
+        assertWithTestConfig()
             .withPropertyValues("pg.index.health.test.enabled=false")
             .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
             .run(context -> assertThat(context.getBeanDefinitionNames())
@@ -97,7 +109,7 @@ class DatabaseStructureHealthAutoConfigurationTest {
 
     @Test
     void shouldCreateAutoConfigurationWhenPropertyExplicitlySet() {
-        withTestConfig()
+        assertWithTestConfig()
             .withPropertyValues("pg.index.health.test.enabled=true")
             .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
             .run(context -> assertThat(context.getBeanDefinitionNames())
@@ -108,8 +120,8 @@ class DatabaseStructureHealthAutoConfigurationTest {
 
     @Test
     void withoutPgConnectionClass() {
-        AccessController.doPrivileged((PrivilegedAction<?>) () -> {
-            withTestConfig()
+        assertThatCode(() -> AccessController.doPrivileged((PrivilegedAction<?>) () -> {
+            assertWithTestConfig()
                 .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
                 .withClassLoader(new FilteredClassLoader(PgConnection.class))
                 .run(context -> assertThat(context.getBeanDefinitionNames())
@@ -117,7 +129,7 @@ class DatabaseStructureHealthAutoConfigurationTest {
                     .filteredOn(beanNamesFilter)
                     .isEmpty());
             return null;
-        });
+        })).doesNotThrowAnyException();
     }
 
     @ParameterizedTest
@@ -138,7 +150,7 @@ class DatabaseStructureHealthAutoConfigurationTest {
         ConfigurationMaintenanceOnHost.class})
     void withoutClass(final Class<?> type) {
         AccessController.doPrivileged((PrivilegedAction<?>) () -> {
-            withTestConfig()
+            assertWithTestConfig()
                 .withInitializer(DatabaseStructureHealthAutoConfigurationTest::initialize)
                 .withClassLoader(new FilteredClassLoader(type))
                 .run(context -> assertThat(context)
@@ -147,13 +159,15 @@ class DatabaseStructureHealthAutoConfigurationTest {
                     .satisfies(c -> assertThat(c.getBeanDefinitionNames())
                         .isNotEmpty()
                         .filteredOn(beanNamesFilter)
-                        .hasSize(14)));
+                        .hasSize(14)
+                        .allSatisfy(n -> assertThat(context.getBean(n))
+                            .isNotNull())));
             return null;
         });
     }
 
     @Nonnull
-    private ApplicationContextRunner withTestConfig() {
+    private ApplicationContextRunner assertWithTestConfig() {
         return contextRunner.withUserConfiguration(DatabaseStructureHealthAutoConfiguration.class);
     }
 
