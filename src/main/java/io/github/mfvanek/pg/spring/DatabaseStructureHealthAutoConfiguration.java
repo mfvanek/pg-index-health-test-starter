@@ -46,11 +46,12 @@ import javax.sql.DataSource;
  * @author Ivan Vakhrushev
  * @since 0.3.1
  */
+@SuppressWarnings({"checkstyle:ClassDataAbstractionCoupling", "checkstyle:ClassFanOutComplexity"})
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(DatabaseStructureHealthProperties.class)
 @ConditionalOnClass(DataSource.class)
 @ConditionalOnProperty(name = "pg.index.health.test.enabled", matchIfMissing = true, havingValue = "true")
-@AutoConfigureAfter({DataSourceAutoConfiguration.class})
+@AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class DatabaseStructureHealthAutoConfiguration {
 
     @Bean
