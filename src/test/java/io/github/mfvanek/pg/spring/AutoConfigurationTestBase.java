@@ -26,6 +26,8 @@ import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.sql.DataSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 abstract class AutoConfigurationTestBase {
 
     protected final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
@@ -66,5 +68,15 @@ abstract class AutoConfigurationTestBase {
     @Nonnull
     protected static String getBeanName(@Nonnull final Class<?> type) {
         return WordUtils.uncapitalize(type.getSimpleName());
+    }
+
+    protected void assertThatBeansAreNotNullBean(@Nonnull final ConfigurableApplicationContext context) {
+        EXPECTED_BEANS.forEach(beanName ->
+            assertThatBeanIsNotNullBean(context, beanName));
+    }
+
+    protected void assertThatBeanIsNotNullBean(@Nonnull final ConfigurableApplicationContext context, @Nonnull final String beanName) {
+        assertThat(context.getBean(beanName))
+            .isInstanceOfAny(EXPECTED_TYPES);
     }
 }

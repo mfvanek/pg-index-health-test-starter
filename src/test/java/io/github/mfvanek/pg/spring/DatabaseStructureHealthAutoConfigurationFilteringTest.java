@@ -79,8 +79,9 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
                         .isNotEmpty()
                         .filteredOn(beanNamesFilter)
                         .hasSize(EXPECTED_BEANS.size() - 1)
-                        .allSatisfy(n -> assertThat(context.getBean(n))
-                            .isInstanceOfAny(EXPECTED_TYPES))));
+                        .allSatisfy(beanName ->
+                            assertThatBeanIsNotNullBean(context, beanName)))
+                );
             return null;
         });
     }

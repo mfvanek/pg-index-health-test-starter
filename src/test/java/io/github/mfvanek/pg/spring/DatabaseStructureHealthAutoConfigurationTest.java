@@ -33,9 +33,7 @@ class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTest
                     .filteredOn(beanNamesFilter)
                     .hasSameSizeAs(EXPECTED_BEANS)
                     .containsAll(EXPECTED_BEANS);
-                EXPECTED_BEANS.forEach(n ->
-                    assertThat(context.getBean(n))
-                        .isInstanceOfAny(EXPECTED_TYPES));
+                assertThatBeansAreNotNullBean(context);
             });
     }
 
@@ -61,9 +59,7 @@ class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTest
                     .filteredOn(beanNamesFilter)
                     .hasSameSizeAs(EXPECTED_BEANS)
                     .containsAll(EXPECTED_BEANS);
-                EXPECTED_BEANS.forEach(n ->
-                    assertThat(context.getBean(n))
-                        .isInstanceOfAny(EXPECTED_TYPES));
+                assertThatBeansAreNotNullBean(context);
             });
     }
 }

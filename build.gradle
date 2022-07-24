@@ -45,6 +45,7 @@ test {
     dependsOn checkstyleMain, checkstyleTest, pmdMain, pmdTest, spotbugsMain, spotbugsTest
     finalizedBy jacocoTestReport
     finalizedBy jacocoTestCoverageVerification
+    finalizedBy 'pitest'
 }
 
 jar {
@@ -218,6 +219,7 @@ pitest {
     threads = 4
     outputFormats = ['XML', 'HTML']
     timestampedReports = false
+    mutationThreshold = 100
 }
 
 build.dependsOn 'pitest'
