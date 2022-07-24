@@ -30,11 +30,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 abstract class AutoConfigurationTestBase {
 
-    protected final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
-
-    protected final Predicate<String> beanNamesFilter = b -> !b.startsWith("org.springframework") && !b.startsWith("pg.index.health.test") &&
-        !b.endsWith("AutoConfiguration") && !"dataSource".equals(b);
-
     protected static final List<String> EXPECTED_BEANS = Collections.unmodifiableList(Arrays.asList(
         "pgConnection",
         "duplicatedIndexesCheckOnHost",
@@ -52,8 +47,11 @@ abstract class AutoConfigurationTestBase {
         "statisticsMaintenanceOnHost",
         "configurationMaintenanceOnHost"
     ));
-
     protected static final Class<?>[] EXPECTED_TYPES = {PgConnection.class, AbstractCheckOnHost.class, StatisticsMaintenanceOnHost.class, ConfigurationMaintenanceOnHost.class};
+
+    protected final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
+    protected final Predicate<String> beanNamesFilter = b -> !b.startsWith("org.springframework") && !b.startsWith("pg.index.health.test") &&
+        !b.endsWith("AutoConfiguration") && !"dataSource".equals(b);
 
     @Nonnull
     protected ApplicationContextRunner assertWithTestConfig() {
