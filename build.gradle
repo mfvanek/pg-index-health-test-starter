@@ -3,10 +3,11 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id 'jacoco'
-    id 'com.github.spotbugs' version '5.0.6'
+    id 'com.github.spotbugs' version '5.0.9'
     id 'checkstyle'
     id 'pmd'
     id 'org.sonarqube' version '3.3'
+    id 'info.solidsoft.pitest' version '1.7.4'
 }
 
 group 'io.github.mfvanek'
@@ -25,7 +26,7 @@ repositories {
 }
 
 def junitVersion = '5.8.2'
-def springVersion = '2.5.10'
+def springVersion = '2.5.14'
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:$springVersion"
     api 'io.github.mfvanek:pg-index-health:0.6.0'
@@ -41,8 +42,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    dependsOn checkstyleMain, checkstyleTest, pmdMain, pmdTest, spotbugsMain, spotbugsTest
     finalizedBy jacocoTestReport
     finalizedBy jacocoTestCoverageVerification
+    finalizedBy 'pitest'
 }
 
 jar {
@@ -180,7 +183,7 @@ jacocoTestCoverageVerification {
 }
 
 checkstyle {
-    toolVersion '8.45'
+    toolVersion '10.3.1'
     configFile file("config/checkstyle/checkstyle.xml")
     ignoreFailures = false
     maxWarnings = 0
@@ -193,12 +196,11 @@ checkstyleTest {
     source ='src/test/java'
 }
 
-check.dependsOn jacocoTestReport
-check.dependsOn jacocoTestCoverageVerification
+check.dependsOn jacocoTestReport, jacocoTestCoverageVerification
 
 pmd {
     consoleOutput = true
-    toolVersion = "6.42.0"
+    toolVersion = "6.47.0"
     ruleSetFiles = files("config/pmd/pmd.xml")
     ruleSets = []
 }
@@ -210,3 +212,14 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
     }
 }
+
+pitest {
+    junit5PluginVersion = '1.0.0'
+    pitestVersion = '1.9.3'
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+    mutationThreshold = 100
+}
+
+build.dependsOn 'pitest'

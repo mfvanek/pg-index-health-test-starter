@@ -13,6 +13,8 @@ Spring Boot Starter for using [pg-index-health](https://github.com/mfvanek/pg-in
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=mfvanek_pg-index-health-test-starter&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=mfvanek_pg-index-health-test-starter)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mfvanek_pg-index-health-test-starter&metric=coverage)](https://sonarcloud.io/summary/new_code?id=mfvanek_pg-index-health-test-starter)
 
+[![Mutation score](https://img.shields.io/badge/Mutation%20score-100%25-green)](https://pitest.org/ "Mutation score 100%")
+
 ## Installation
 Using Gradle:
 ```groovy
