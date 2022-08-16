@@ -44,6 +44,7 @@ abstract class AutoConfigurationTestBase {
         "unusedIndexesCheckOnHost",
         "tablesWithoutDescriptionCheckOnHost",
         "columnsWithoutDescriptionCheckOnHost",
+        "columnsWithJsonTypeCheckOnHost",
         "statisticsMaintenanceOnHost",
         "configurationMaintenanceOnHost"
     ));
