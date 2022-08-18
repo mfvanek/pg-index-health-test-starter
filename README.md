@@ -18,7 +18,7 @@ Spring Boot Starter for using [pg-index-health](https://github.com/mfvanek/pg-in
 ## Installation
 Using Gradle:
 ```groovy
-testImplementation 'io.github.mfvanek:pg-index-health-test-starter:0.6.0'
+testImplementation 'io.github.mfvanek:pg-index-health-test-starter:0.6.1'
 ```
 
 Using Maven:
@@ -26,7 +26,7 @@ Using Maven:
 <dependency>
   <groupId>io.github.mfvanek</groupId>
   <artifactId>pg-index-health-test-starter</artifactId>
-  <version>0.6.0</version>
+  <version>0.6.1</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -40,5 +40,4 @@ Requires [Java 8](https://www.java.com/en/)
 | Spring Boot | pg-index-health-test-starter |
 |-------------|------------------------------|
 | 2.4.x       | 0.3.x — 0.4.x                |
-| 2.5.x       | 0.5.x                        |
-| 2.5.x       | 0.6.0                        |
+| 2.5.x       | 0.5.x — 0.6.x                |
