@@ -7,7 +7,7 @@ plugins {
     id 'checkstyle'
     id 'pmd'
     id 'org.sonarqube' version '3.3'
-    id 'info.solidsoft.pitest' version '1.7.4'
+    id 'info.solidsoft.pitest' version '1.9.0'
 }
 
 group 'io.github.mfvanek'
@@ -45,7 +45,6 @@ test {
     dependsOn checkstyleMain, checkstyleTest, pmdMain, pmdTest, spotbugsMain, spotbugsTest
     finalizedBy jacocoTestReport
     finalizedBy jacocoTestCoverageVerification
-    finalizedBy 'pitest'
 }
 
 jar {
@@ -215,11 +214,14 @@ sonarqube {
 
 pitest {
     junit5PluginVersion = '1.0.0'
-    pitestVersion = '1.9.3'
+    pitestVersion = '1.9.4'
     threads = 4
     outputFormats = ['XML', 'HTML']
     timestampedReports = false
     mutationThreshold = 100
 }
 
+tasks.named('pitest').configure {
+    shouldRunAfter test
+}
 build.dependsOn 'pitest'
