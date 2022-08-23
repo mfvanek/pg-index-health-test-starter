@@ -38,6 +38,8 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     testImplementation 'org.apache.commons:commons-text:1.9'
     testImplementation 'com.google.code.findbugs:jsr305:3.0.2'
+
+    pitest 'it.mulders.stryker:pit-dashboard-reporter:0.1.2'
 }
 
 test {
@@ -216,12 +218,12 @@ pitest {
     junit5PluginVersion = '1.0.0'
     pitestVersion = '1.9.4'
     threads = 4
-    outputFormats = ['XML', 'HTML']
+    outputFormats = System.getenv('STRYKER_DASHBOARD_API_KEY') != null ? ['stryker-dashboard'] : ['HTML']
     timestampedReports = false
     mutationThreshold = 100
 }
 
 tasks.named('pitest').configure {
-    shouldRunAfter test
+    mustRunAfter test
 }
 build.dependsOn 'pitest'
