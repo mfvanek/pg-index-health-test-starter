@@ -10,6 +10,7 @@
 package io.github.mfvanek.pg.spring;
 
 import io.github.mfvanek.pg.checks.host.ColumnsWithJsonTypeCheckOnHost;
+import io.github.mfvanek.pg.checks.host.ColumnsWithSerialTypesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ColumnsWithoutDescriptionCheckOnHost;
 import io.github.mfvanek.pg.checks.host.DuplicatedIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ForeignKeysNotCoveredWithIndexCheckOnHost;
@@ -67,6 +68,7 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
         TablesWithoutDescriptionCheckOnHost.class,
         ColumnsWithoutDescriptionCheckOnHost.class,
         ColumnsWithJsonTypeCheckOnHost.class,
+        ColumnsWithSerialTypesCheckOnHost.class,
         StatisticsMaintenanceOnHost.class,
         ConfigurationMaintenanceOnHost.class})
     void withoutClass(final Class<?> type) {
