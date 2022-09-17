@@ -9,7 +9,7 @@
 
 package io.github.mfvanek.pg.spring;
 
-import io.github.mfvanek.pg.common.maintenance.AbstractCheckOnHost;
+import io.github.mfvanek.pg.common.maintenance.DatabaseCheckOnHost;
 import io.github.mfvanek.pg.connection.PgConnection;
 import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHost;
 import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHost;
@@ -49,7 +49,7 @@ abstract class AutoConfigurationTestBase {
         "statisticsMaintenanceOnHost",
         "configurationMaintenanceOnHost"
     ));
-    protected static final Class<?>[] EXPECTED_TYPES = {PgConnection.class, AbstractCheckOnHost.class, StatisticsMaintenanceOnHost.class, ConfigurationMaintenanceOnHost.class};
+    protected static final Class<?>[] EXPECTED_TYPES = {PgConnection.class, DatabaseCheckOnHost.class, StatisticsMaintenanceOnHost.class, ConfigurationMaintenanceOnHost.class};
 
     protected final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
     protected final Predicate<String> beanNamesFilter = b -> !b.startsWith("org.springframework") && !b.startsWith("pg.index.health.test") &&
