@@ -10,6 +10,7 @@
 package io.github.mfvanek.pg.spring;
 
 import io.github.mfvanek.pg.checks.host.ColumnsWithJsonTypeCheckOnHost;
+import io.github.mfvanek.pg.checks.host.ColumnsWithSerialTypesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ColumnsWithoutDescriptionCheckOnHost;
 import io.github.mfvanek.pg.checks.host.DuplicatedIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ForeignKeysNotCoveredWithIndexCheckOnHost;
@@ -165,6 +166,14 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnMissingBean
     public ColumnsWithJsonTypeCheckOnHost columnsWithJsonTypeCheckOnHost(final PgConnection pgConnection) {
         return new ColumnsWithJsonTypeCheckOnHost(pgConnection);
+    }
+
+    @Bean
+    @ConditionalOnClass(ColumnsWithSerialTypesCheckOnHost.class)
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public ColumnsWithSerialTypesCheckOnHost columnsWithSerialTypesCheckOnHost(final PgConnection pgConnection) {
+        return new ColumnsWithSerialTypesCheckOnHost(pgConnection);
     }
 
     @Bean
