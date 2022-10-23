@@ -11,7 +11,7 @@ plugins {
 }
 
 group 'io.github.mfvanek'
-version '0.6.4-SNAPSHOT'
+version '0.7.0-SNAPSHOT'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -25,10 +25,10 @@ repositories {
     mavenCentral()
 }
 
-def springVersion = '2.5.14'
+def springVersion = '2.6.13'
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:$springVersion"
-    api 'io.github.mfvanek:pg-index-health:0.6.3'
+    api 'io.github.mfvanek:pg-index-health:0.7.0-SNAPSHOT'
     annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:$springVersion"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
 
@@ -36,7 +36,7 @@ dependencies {
     testImplementation enforcedPlatform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    testImplementation 'org.apache.commons:commons-text:1.9'
+    testImplementation 'org.apache.commons:commons-text:1.10.0'
     testImplementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     pitest 'it.mulders.stryker:pit-dashboard-reporter:0.1.2'
@@ -216,8 +216,8 @@ sonarqube {
 }
 
 pitest {
-    junit5PluginVersion = '1.0.0'
-    pitestVersion = '1.9.5'
+    junit5PluginVersion = '1.1.0'
+    pitestVersion = '1.9.8'
     threads = 4
     outputFormats = System.getenv('STRYKER_DASHBOARD_API_KEY') != null ? ['stryker-dashboard'] : ['HTML']
     timestampedReports = false
