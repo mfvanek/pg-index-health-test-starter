@@ -32,9 +32,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.FilteredClassLoader;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
@@ -42,16 +39,14 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
 
     @Test
     void withoutPgConnectionClass() {
-        assertThatCode(() -> AccessController.doPrivileged((PrivilegedAction<?>) () -> {
-            assertWithTestConfig()
-                .withInitializer(AutoConfigurationTestBase::initialize)
-                .withClassLoader(new FilteredClassLoader(PgConnection.class))
-                .run(context -> assertThat(context.getBeanDefinitionNames())
-                    .isNotEmpty()
-                    .filteredOn(beanNamesFilter)
-                    .isEmpty());
-            return null;
-        })).doesNotThrowAnyException();
+        assertThatCode(() -> assertWithTestConfig()
+            .withInitializer(AutoConfigurationTestBase::initialize)
+            .withClassLoader(new FilteredClassLoader(PgConnection.class))
+            .run(context -> assertThat(context.getBeanDefinitionNames())
+                .isNotEmpty()
+                .filteredOn(beanNamesFilter)
+                .isEmpty())
+        ).doesNotThrowAnyException();
     }
 
     @ParameterizedTest
@@ -74,21 +69,18 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
         StatisticsMaintenanceOnHost.class,
         ConfigurationMaintenanceOnHost.class})
     void withoutClass(final Class<?> type) {
-        AccessController.doPrivileged((PrivilegedAction<?>) () -> {
-            assertWithTestConfig()
-                .withInitializer(AutoConfigurationTestBase::initialize)
-                .withClassLoader(new FilteredClassLoader(type))
-                .run(context -> assertThat(context)
-                    .hasBean("pgConnection")
-                    .doesNotHaveBean(getBeanName(type))
-                    .satisfies(c -> assertThat(c.getBeanDefinitionNames())
-                        .isNotEmpty()
-                        .filteredOn(beanNamesFilter)
-                        .hasSize(EXPECTED_BEANS.size() - 1)
-                        .allSatisfy(beanName ->
-                            assertThatBeanIsNotNullBean(context, beanName)))
-                );
-            return null;
-        });
+        assertWithTestConfig()
+            .withInitializer(AutoConfigurationTestBase::initialize)
+            .withClassLoader(new FilteredClassLoader(type))
+            .run(context -> assertThat(context)
+                .hasBean("pgConnection")
+                .doesNotHaveBean(getBeanName(type))
+                .satisfies(c -> assertThat(c.getBeanDefinitionNames())
+                    .isNotEmpty()
+                    .filteredOn(beanNamesFilter)
+                    .hasSize(EXPECTED_BEANS.size() - 1)
+                    .allSatisfy(beanName ->
+                        assertThatBeanIsNotNullBean(context, beanName)))
+            );
     }
 }
