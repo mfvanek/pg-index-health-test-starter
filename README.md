@@ -33,12 +33,14 @@ Using Maven:
 
 ## Compatibility
 ### Java versions
-Requires [Java 8](https://www.java.com/en/)
+Requires [Java 11](https://www.java.com/en/)  
+For **Java 8** compatible version take a look at release [0.7.0](https://github.com/mfvanek/pg-index-health-test-starter/releases/tag/v.0.7.0) and lower
 
 ### Spring Boot versions
 
-| Spring Boot | pg-index-health-test-starter |
-|-------------|------------------------------|
-| 2.4.x       | 0.3.x — 0.4.x                |
-| 2.5.x       | 0.5.x — 0.6.x                |
-| 2.6.x       | 0.7.x                        |
+| Spring Boot | Min JDK | pg-index-health-test-starter  |
+|-------------|---------|-------------------------------|
+| 2.4.x       | 8       | 0.3.x — 0.4.x                 |
+| 2.5.x       | 8       | 0.5.x — 0.6.x                 |
+| 2.6.x       | 8       | 0.7.x                         |
+| 2.7.x       | 11      | 0.8.x                         |

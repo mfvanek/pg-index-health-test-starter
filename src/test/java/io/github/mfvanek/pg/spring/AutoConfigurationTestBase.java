@@ -19,8 +19,6 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
@@ -30,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 abstract class AutoConfigurationTestBase {
 
-    protected static final List<String> EXPECTED_BEANS = Collections.unmodifiableList(Arrays.asList(
+    protected static final List<String> EXPECTED_BEANS = List.of(
         "pgConnection",
         "duplicatedIndexesCheckOnHost",
         "foreignKeysNotCoveredWithIndexCheckOnHost",
@@ -49,7 +47,7 @@ abstract class AutoConfigurationTestBase {
         "functionsWithoutDescriptionCheckOnHost",
         "statisticsMaintenanceOnHost",
         "configurationMaintenanceOnHost"
-    ));
+    );
     protected static final Class<?>[] EXPECTED_TYPES = {PgConnection.class, DatabaseCheckOnHost.class, StatisticsMaintenanceOnHost.class, ConfigurationMaintenanceOnHost.class};
 
     protected final ApplicationContextRunner contextRunner = new ApplicationContextRunner();

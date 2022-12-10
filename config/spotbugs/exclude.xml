@@ -4,4 +4,8 @@
         <Bug pattern="MC_OVERRIDABLE_METHOD_CALL_IN_CONSTRUCTOR"/>
         <Class name="io.github.mfvanek.pg.spring.AutoConfigurationTestBase"/>
     </Match>
+    <Match>
+        <Bug pattern="DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED"/>
+        <Class name="io.github.mfvanek.pg.spring.DatabaseStructureHealthAutoConfigurationFilteringTest"/>
+    </Match>
 </FindBugsFilter>
