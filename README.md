@@ -7,6 +7,9 @@ Spring Boot Starter for using [pg-index-health](https://github.com/mfvanek/pg-in
 [![codecov](https://codecov.io/gh/mfvanek/pg-index-health-test-starter/branch/master/graph/badge.svg?token=1C3SANSWIT)](https://codecov.io/gh/mfvanek/pg-index-health-test-starter)
 [![javadoc](https://javadoc.io/badge2/io.github.mfvanek/pg-index-health-test-starter/javadoc.svg)](https://javadoc.io/doc/io.github.mfvanek/pg-index-health-test-starter "javadoc")
 
+[![Total lines](https://tokei.rs/b1/github/mfvanek/pg-index-health-test-starter)](https://github.com/mfvanek/pg-index-health-test-starter)
+[![Files](https://tokei.rs/b1/github/mfvanek/pg-index-health-test-starter?category=files)](https://github.com/mfvanek/pg-index-health-test-starter)
+
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=mfvanek_pg-index-health-test-starter&metric=bugs)](https://sonarcloud.io/summary/new_code?id=mfvanek_pg-index-health-test-starter)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=mfvanek_pg-index-health-test-starter&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=mfvanek_pg-index-health-test-starter)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=mfvanek_pg-index-health-test-starter&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=mfvanek_pg-index-health-test-starter)
@@ -18,7 +21,7 @@ Spring Boot Starter for using [pg-index-health](https://github.com/mfvanek/pg-in
 ## Installation
 Using Gradle:
 ```groovy
-testImplementation 'io.github.mfvanek:pg-index-health-test-starter:0.7.0'
+testImplementation 'io.github.mfvanek:pg-index-health-test-starter:0.8.0'
 ```
 
 Using Maven:
@@ -26,7 +29,7 @@ Using Maven:
 <dependency>
   <groupId>io.github.mfvanek</groupId>
   <artifactId>pg-index-health-test-starter</artifactId>
-  <version>0.7.0</version>
+  <version>0.8.0</version>
   <scope>test</scope>
 </dependency>
 ```
