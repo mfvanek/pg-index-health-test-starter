@@ -25,7 +25,7 @@ repositories {
     mavenCentral()
 }
 
-def springVersion = '2.7.6'
+def springVersion = '2.7.7'
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:$springVersion"
     api 'io.github.mfvanek:pg-index-health:0.8.0'
@@ -33,13 +33,13 @@ dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
-    testImplementation enforcedPlatform('org.junit:junit-bom:5.9.1')
+    testImplementation enforcedPlatform('org.junit:junit-bom:5.9.2')
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     testImplementation 'org.apache.commons:commons-text:1.10.0'
     testImplementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-    pitest 'it.mulders.stryker:pit-dashboard-reporter:0.1.2'
+    pitest 'it.mulders.stryker:pit-dashboard-reporter:0.1.4'
     checkstyle 'com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1'
 }
 
@@ -186,7 +186,7 @@ jacocoTestCoverageVerification {
 }
 
 checkstyle {
-    toolVersion '10.5.0'
+    toolVersion '10.6.0'
     configFile file("config/checkstyle/checkstyle.xml")
     ignoreFailures = false
     maxWarnings = 0
@@ -203,7 +203,7 @@ check.dependsOn jacocoTestReport, jacocoTestCoverageVerification
 
 pmd {
     consoleOutput = true
-    toolVersion = '6.52.0'
+    toolVersion = '6.53.0'
     ruleSetFiles = files("config/pmd/pmd.xml")
     ruleSets = []
 }
@@ -217,8 +217,8 @@ sonarqube {
 }
 
 pitest {
-    junit5PluginVersion = '1.1.0'
-    pitestVersion = '1.9.11'
+    junit5PluginVersion = '1.1.2'
+    pitestVersion = '1.10.4'
     threads = 4
     outputFormats = System.getenv('STRYKER_DASHBOARD_API_KEY') != null ? ['stryker-dashboard'] : ['HTML']
     timestampedReports = false
