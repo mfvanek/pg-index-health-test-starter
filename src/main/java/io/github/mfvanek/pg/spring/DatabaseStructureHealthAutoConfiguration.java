@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2022. Ivan Vakhrushev.
+ * Copyright (c) 2021-2023. Ivan Vakhrushev.
  * https://github.com/mfvanek/pg-index-health-test-starter
  *
  * This file is a part of "pg-index-health-test-starter".
