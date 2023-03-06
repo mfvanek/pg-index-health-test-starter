@@ -34,7 +34,7 @@ repositories {
     mavenCentral()
 }
 
-def springVersion = '2.7.9'
+def springVersion = '3.0.4'
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:$springVersion"
     api 'io.github.mfvanek:pg-index-health:0.8.0'
