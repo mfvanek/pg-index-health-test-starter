@@ -15,7 +15,7 @@ plugins {
 }
 
 group 'io.github.mfvanek'
-version '0.9.0-SNAPSHOT'
+version '0.9.0'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -37,7 +37,7 @@ repositories {
 def springVersion = '2.7.9'
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter:$springVersion"
-    api 'io.github.mfvanek:pg-index-health:0.8.0'
+    api 'io.github.mfvanek:pg-index-health:0.9.0'
     annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:$springVersion"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springVersion"
 
