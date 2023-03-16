@@ -26,11 +26,13 @@ import io.github.mfvanek.pg.checks.host.TablesWithoutPrimaryKeyCheckOnHost;
 import io.github.mfvanek.pg.checks.host.UnusedIndexesCheckOnHost;
 import io.github.mfvanek.pg.connection.PgConnection;
 import io.github.mfvanek.pg.connection.PgConnectionImpl;
+import io.github.mfvanek.pg.connection.PgHostImpl;
 import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHost;
 import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHostImpl;
 import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHost;
 import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHostImpl;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -61,8 +63,9 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnClass(PgConnection.class)
     @ConditionalOnBean(name = "dataSource")
     @ConditionalOnMissingBean
-    public PgConnection pgConnection(@Qualifier("dataSource") final DataSource dataSource) {
-        return PgConnectionImpl.ofPrimary(dataSource);
+    public PgConnection pgConnection(@Qualifier("dataSource") final DataSource dataSource,
+                                     @Value("${spring.datasource.url:jdbc:postgresql://localhost:5432}") final String databaseUrl) {
+        return PgConnectionImpl.of(dataSource, PgHostImpl.ofUrl(databaseUrl));
     }
 
     @Bean
