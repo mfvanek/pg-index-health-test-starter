@@ -65,6 +65,7 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnMissingBean
     public PgConnection pgConnection(@Qualifier("dataSource") final DataSource dataSource,
                                      @Value("${spring.datasource.url:jdbc:postgresql://localhost:5432}") final String databaseUrl) {
+        // TODO Try to obtain URL from dataSource.getConnection().getMetaData().getURL()
         return PgConnectionImpl.of(dataSource, PgHostImpl.ofUrl(databaseUrl));
     }
 
