@@ -13,6 +13,7 @@ import io.github.mfvanek.pg.connection.PgConnection;
 import io.github.mfvanek.pg.connection.PgHostImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.sql.Connection;
@@ -107,9 +108,9 @@ class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTest
             Mockito.when(connectionMock.getMetaData())
                 .thenThrow(SQLException.class);
 
-            assertThatThrownBy(() -> assertWithTestConfig()
-                .withInitializer(AutoConfigurationTestBase::initialize)
-                .run(this::assertThatPgConnectionIsValid))
+            final ApplicationContextRunner contextRunner = assertWithTestConfig()
+                .withInitializer(AutoConfigurationTestBase::initialize);
+            assertThatThrownBy(() -> contextRunner.run(this::assertThatPgConnectionIsValid))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage("Unstarted application context org.springframework.boot.test.context.assertj.AssertableApplicationContext[" +
                     "startupFailure=org.springframework.beans.factory.BeanCreationException] failed to start")
