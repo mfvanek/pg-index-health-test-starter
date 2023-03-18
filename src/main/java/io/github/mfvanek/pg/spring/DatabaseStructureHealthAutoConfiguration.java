@@ -26,7 +26,9 @@ import io.github.mfvanek.pg.checks.host.TablesWithoutPrimaryKeyCheckOnHost;
 import io.github.mfvanek.pg.checks.host.UnusedIndexesCheckOnHost;
 import io.github.mfvanek.pg.connection.PgConnection;
 import io.github.mfvanek.pg.connection.PgConnectionImpl;
+import io.github.mfvanek.pg.connection.PgHost;
 import io.github.mfvanek.pg.connection.PgHostImpl;
+import io.github.mfvanek.pg.connection.PgSqlException;
 import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHost;
 import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHostImpl;
 import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHost;
@@ -43,6 +45,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Objects;
 import javax.sql.DataSource;
 
 /**
@@ -64,9 +69,18 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnBean(name = "dataSource")
     @ConditionalOnMissingBean
     public PgConnection pgConnection(@Qualifier("dataSource") final DataSource dataSource,
-                                     @Value("${spring.datasource.url:jdbc:postgresql://localhost:5432}") final String databaseUrl) {
-        // TODO Try to obtain URL from dataSource.getConnection().getMetaData().getURL()
-        return PgConnectionImpl.of(dataSource, PgHostImpl.ofUrl(databaseUrl));
+                                     @Value("${spring.datasource.url:#{null}}") final String databaseUrl) {
+        final PgHost host;
+        if (Objects.isNull(databaseUrl) || databaseUrl.isBlank()) {
+            try (Connection connection = dataSource.getConnection()) {
+                host = PgHostImpl.ofUrl(connection.getMetaData().getURL());
+            } catch (SQLException ex) {
+                throw new PgSqlException(ex);
+            }
+        } else {
+            host = PgHostImpl.ofUrl(databaseUrl);
+        }
+        return PgConnectionImpl.of(dataSource, host);
     }
 
     @Bean

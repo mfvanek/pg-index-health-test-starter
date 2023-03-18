@@ -70,6 +70,7 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
         ConfigurationMaintenanceOnHost.class})
     void withoutClass(final Class<?> type) {
         assertWithTestConfig()
+            .withPropertyValues("spring.datasource.url=jdbc:postgresql://localhost:5432")
             .withInitializer(AutoConfigurationTestBase::initialize)
             .withClassLoader(new FilteredClassLoader(type))
             .run(context -> assertThat(context)

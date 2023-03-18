@@ -49,10 +49,11 @@ abstract class AutoConfigurationTestBase {
         "configurationMaintenanceOnHost"
     );
     protected static final Class<?>[] EXPECTED_TYPES = {PgConnection.class, DatabaseCheckOnHost.class, StatisticsMaintenanceOnHost.class, ConfigurationMaintenanceOnHost.class};
+    protected static final DataSource DATA_SOURCE_MOCK = Mockito.mock(DataSource.class);
 
-    protected final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
     protected final Predicate<String> beanNamesFilter = b -> !b.startsWith("org.springframework") && !b.startsWith("pg.index.health.test") &&
         !b.endsWith("AutoConfiguration") && !"dataSource".equals(b);
+    private final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
 
     @Nonnull
     protected ApplicationContextRunner assertWithTestConfig() {
@@ -61,7 +62,7 @@ abstract class AutoConfigurationTestBase {
 
     protected static <C extends ConfigurableApplicationContext> void initialize(@Nonnull final C applicationContext) {
         final GenericApplicationContext context = (GenericApplicationContext) applicationContext;
-        context.registerBean("dataSource", DataSource.class, () -> Mockito.mock(DataSource.class));
+        context.registerBean("dataSource", DataSource.class, () -> DATA_SOURCE_MOCK);
     }
 
     @Nonnull
