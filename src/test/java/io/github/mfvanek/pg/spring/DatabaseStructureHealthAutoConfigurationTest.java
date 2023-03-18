@@ -9,9 +9,19 @@
 
 package io.github.mfvanek.pg.spring;
 
+import io.github.mfvanek.pg.connection.PgConnection;
+import io.github.mfvanek.pg.connection.PgHostImpl;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import javax.annotation.Nonnull;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTestBase {
 
@@ -27,14 +37,43 @@ class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTest
     @Test
     void withDataSource() {
         assertWithTestConfig()
+            .withPropertyValues("spring.datasource.url=jdbc:postgresql://localhost:5432")
             .withInitializer(AutoConfigurationTestBase::initialize)
             .run(context -> {
-                assertThat(context.getBeanDefinitionNames())
-                    .filteredOn(beanNamesFilter)
-                    .hasSameSizeAs(EXPECTED_BEANS)
-                    .containsAll(EXPECTED_BEANS);
+                assertThatBeansPresent(context);
                 assertThatBeansAreNotNullBean(context);
             });
+    }
+
+    @Test
+    void withDataSourceButWithoutConnectionString() throws SQLException {
+        try (Connection connectionMock = Mockito.mock(Connection.class)) {
+            setMocks(connectionMock);
+
+            assertWithTestConfig()
+                .withInitializer(AutoConfigurationTestBase::initialize)
+                .run(context -> {
+                    assertThatBeansPresent(context);
+                    assertThatBeansAreNotNullBean(context);
+                    assertThatPgConnectionIsValid(context);
+                });
+        }
+    }
+
+    @Test
+    void withDataSourceAndEmptyConnectionString() throws SQLException {
+        try (Connection connectionMock = Mockito.mock(Connection.class)) {
+            setMocks(connectionMock);
+
+            assertWithTestConfig()
+                .withPropertyValues("spring.datasource.url=")
+                .withInitializer(AutoConfigurationTestBase::initialize)
+                .run(context -> {
+                    assertThatBeansPresent(context);
+                    assertThatBeansAreNotNullBean(context);
+                    assertThatPgConnectionIsValid(context);
+                });
+        }
     }
 
     @Test
@@ -51,15 +90,55 @@ class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTest
     @Test
     void shouldCreateAutoConfigurationWhenPropertyExplicitlySet() {
         assertWithTestConfig()
-            .withPropertyValues("pg.index.health.test.enabled=true")
+            .withPropertyValues("pg.index.health.test.enabled=true",
+                "spring.datasource.url=jdbc:postgresql://localhost:5432")
             .withInitializer(AutoConfigurationTestBase::initialize)
             .run(context -> {
-                assertThat(context.getBeanDefinitionNames())
-                    .isNotEmpty()
-                    .filteredOn(beanNamesFilter)
-                    .hasSameSizeAs(EXPECTED_BEANS)
-                    .containsAll(EXPECTED_BEANS);
+                assertThatBeansPresent(context);
                 assertThatBeansAreNotNullBean(context);
             });
+    }
+
+    @Test
+    void withDataSourceAndExceptionWhileObtainingUrlFromMetadata() throws SQLException {
+        try (Connection connectionMock = Mockito.mock(Connection.class)) {
+            Mockito.when(DATA_SOURCE_MOCK.getConnection())
+                .thenReturn(connectionMock);
+            Mockito.when(connectionMock.getMetaData())
+                .thenThrow(SQLException.class);
+
+            assertThatThrownBy(() -> assertWithTestConfig()
+                .withInitializer(AutoConfigurationTestBase::initialize)
+                .run(this::assertThatPgConnectionIsValid))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("Unstarted application context org.springframework.boot.test.context.assertj.AssertableApplicationContext[" +
+                    "startupFailure=org.springframework.beans.factory.BeanCreationException] failed to start")
+                .hasStackTraceContaining("Factory method 'pgConnection' threw exception; nested exception is io.github.mfvanek.pg.connection.PgSqlException");
+        }
+    }
+
+    private void assertThatBeansPresent(@Nonnull final ConfigurableApplicationContext context) {
+        assertThat(context.getBeanDefinitionNames())
+            .isNotEmpty()
+            .filteredOn(beanNamesFilter)
+            .hasSameSizeAs(EXPECTED_BEANS)
+            .containsAll(EXPECTED_BEANS);
+    }
+
+    private void assertThatPgConnectionIsValid(@Nonnull final ConfigurableApplicationContext context) {
+        assertThat(context.getBean("pgConnection", PgConnection.class))
+            .isNotNull()
+            .satisfies(c -> assertThat(c.getHost())
+                .isEqualTo(PgHostImpl.ofUrl("jdbc:postgresql://192.168.1.1:6432")));
+    }
+
+    private void setMocks(@Nonnull final Connection connectionMock) throws SQLException {
+        Mockito.when(DATA_SOURCE_MOCK.getConnection())
+            .thenReturn(connectionMock);
+        final DatabaseMetaData metaDataMock = Mockito.mock(DatabaseMetaData.class);
+        Mockito.when(connectionMock.getMetaData())
+            .thenReturn(metaDataMock);
+        Mockito.when(metaDataMock.getURL())
+            .thenReturn("jdbc:postgresql://192.168.1.1:6432");
     }
 }
