@@ -47,3 +47,6 @@ For **Java 8** compatible version take a look at release [0.7.0](https://github.
 | 2.5.x       | 8       | 0.5.x — 0.6.x                |
 | 2.6.x       | 8       | 0.7.x                        |
 | 2.7.x       | 11      | 0.8.x — 0.9.x                |
+
+#### Spring Boot 3 compatibility
+Starting from **0.9.0.1** added support for Spring Boot 3
