@@ -125,18 +125,6 @@ tasks {
     check {
         dependsOn(jacocoTestReport, jacocoTestCoverageVerification)
     }
-
-    withType<SonarTask>().configureEach {
-        dependsOn(test, jacocoTestReport)
-    }
-
-    withType<PitestTask>().configureEach {
-        mustRunAfter(test)
-    }
-
-    build {
-        dependsOn("pitest")
-    }
 }
 
 checkstyle {
@@ -174,6 +162,9 @@ sonarqube {
         property("sonar.host.url", "https://sonarcloud.io")
     }
 }
+tasks.withType<SonarTask>().configureEach {
+    dependsOn(tasks.test, tasks.jacocoTestReport)
+}
 
 pitest {
     setProperty("junit5PluginVersion", "1.1.2")
@@ -186,6 +177,12 @@ pitest {
     }
     timestampedReports.set(false)
     mutationThreshold.set(100)
+}
+tasks.withType<PitestTask>().configureEach {
+    mustRunAfter(tasks.test)
+}
+tasks.build {
+    dependsOn("pitest")
 }
 
 signing {
