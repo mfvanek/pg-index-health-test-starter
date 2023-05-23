@@ -54,15 +54,16 @@ java {
     withSourcesJar()
 }
 tasks.withType<JavaCompile>().configureEach {
-    options.errorprone.disableWarningsInGeneratedCode.set(true)
+    options.errorprone {
+        disableWarningsInGeneratedCode.set(true)
+    }
 }
 
 tasks {
     test {
         useJUnitPlatform()
         dependsOn(checkstyleMain, checkstyleTest, pmdMain, pmdTest, spotbugsMain, spotbugsTest)
-        finalizedBy(jacocoTestReport)
-        finalizedBy(jacocoTestCoverageVerification)
+        finalizedBy(jacocoTestReport, jacocoTestCoverageVerification)
     }
 
     jar {
@@ -167,8 +168,8 @@ tasks.withType<SonarTask>().configureEach {
 }
 
 pitest {
-    setProperty("junit5PluginVersion", "1.1.2")
-    setProperty("pitestVersion", "1.10.4")
+    junit5PluginVersion.set("1.1.2")
+    pitestVersion.set("1.10.4")
     threads.set(4)
     if (System.getenv("STRYKER_DASHBOARD_API_KEY") != null) {
         outputFormats.set(setOf("stryker-dashboard"))
