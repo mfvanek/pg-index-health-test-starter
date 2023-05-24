@@ -24,6 +24,14 @@ Using Gradle:
 testImplementation 'io.github.mfvanek:pg-index-health-test-starter:0.9.1'
 ```
 
+<details>
+<summary>with Kotlin DSL</summary>
+
+```kotlin
+testImplementation("io.github.mfvanek:pg-index-health-test-starter:0.9.1")
+```
+</details>
+
 Using Maven:
 ```xml
 <dependency>
