@@ -19,7 +19,7 @@ plugins {
 }
 
 group = "io.github.mfvanek"
-version = "0.9.2-SNAPSHOT"
+version = "0.9.2"
 
 repositories {
     mavenLocal()
@@ -29,7 +29,7 @@ repositories {
 val springVersion = "2.7.12"
 
 dependencies {
-    api("io.github.mfvanek:pg-index-health:0.9.1")
+    api("io.github.mfvanek:pg-index-health:0.9.2")
     implementation("org.springframework.boot:spring-boot-starter:$springVersion")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor:$springVersion")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:$springVersion")
@@ -186,13 +186,6 @@ tasks.build {
     dependsOn("pitest")
 }
 
-signing {
-    if (!version.toString().endsWith("SNAPSHOT")) {
-        useGpgCmd()
-        sign(publishing.publications["mavenJava"])
-    }
-}
-
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
@@ -247,5 +240,12 @@ publishing {
                 password = sonatypePassword
             }
         }
+    }
+}
+
+signing {
+    if (!version.toString().endsWith("SNAPSHOT")) {
+        useGpgCmd()
+        sign(publishing.publications["mavenJava"])
     }
 }
