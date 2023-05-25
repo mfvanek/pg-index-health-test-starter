@@ -29,7 +29,7 @@ repositories {
 val springVersion = "2.7.12"
 
 dependencies {
-    api("io.github.mfvanek:pg-index-health:0.9.2")
+    api("io.github.mfvanek:pg-index-health:0.9.3")
     implementation("org.springframework.boot:spring-boot-starter:$springVersion")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor:$springVersion")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:$springVersion")
