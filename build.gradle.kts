@@ -59,6 +59,10 @@ tasks.withType<JavaCompile>().configureEach {
     }
 }
 
+jacoco {
+    toolVersion = "0.8.10"
+}
+
 tasks {
     test {
         useJUnitPlatform()
