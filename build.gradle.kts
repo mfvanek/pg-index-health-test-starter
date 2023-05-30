@@ -26,23 +26,24 @@ repositories {
     mavenCentral()
 }
 
-val springVersion = "2.7.12"
-
 dependencies {
     api("io.github.mfvanek:pg-index-health:0.9.3")
-    implementation("org.springframework.boot:spring-boot-starter:$springVersion")
-    annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor:$springVersion")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:$springVersion")
+    implementation(libs.spring.boot.starter)
+    annotationProcessor(libs.spring.boot.autoconfigureProcessor)
+    annotationProcessor(libs.spring.boot.configurationProcessor)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:$springVersion")
-    testImplementation(enforcedPlatform("org.junit:junit-bom:5.9.3"))
+    testImplementation(libs.spring.boot.starterTest)
+    testImplementation(platform("org.junit:junit-bom:5.9.3"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher") {
+        because("required for pitest")
+    }
     testImplementation("org.apache.commons:commons-text:1.10.0")
     testImplementation("com.google.code.findbugs:jsr305:3.0.2")
     testImplementation("org.assertj:assertj-core:3.24.2")
 
-    pitest("it.mulders.stryker:pit-dashboard-reporter:0.1.5")
+    pitest("it.mulders.stryker:pit-dashboard-reporter:0.2.1")
     checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")
     errorprone("com.google.errorprone:error_prone_core:2.19.1")
 }
@@ -172,8 +173,9 @@ tasks.withType<SonarTask>().configureEach {
 }
 
 pitest {
-    junit5PluginVersion.set("1.1.2")
-    pitestVersion.set("1.10.4")
+    verbosity.set("DEFAULT")
+    junit5PluginVersion.set("1.2.0")
+    pitestVersion.set("1.14.1")
     threads.set(4)
     if (System.getenv("STRYKER_DASHBOARD_API_KEY") != null) {
         outputFormats.set(setOf("stryker-dashboard"))
