@@ -43,7 +43,7 @@ dependencies {
     testImplementation("com.google.code.findbugs:jsr305:3.0.2")
     testImplementation("org.assertj:assertj-core:3.24.2")
 
-    pitest("it.mulders.stryker:pit-dashboard-reporter:0.2.1")
+    pitest(libs.pitest.dashboard.reporter)
     checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")
     errorprone("com.google.errorprone:error_prone_core:2.19.1")
 }
@@ -61,7 +61,7 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 jacoco {
-    toolVersion = "0.8.10"
+    toolVersion = libs.versions.jacoco.get()
 }
 
 tasks {
@@ -134,7 +134,7 @@ tasks {
 }
 
 checkstyle {
-    toolVersion = "10.7.0"
+    toolVersion = libs.versions.checkstyle.get()
     configFile = file("config/checkstyle/checkstyle.xml")
     isIgnoreFailures = false
     maxWarnings = 0
@@ -142,8 +142,8 @@ checkstyle {
 }
 
 pmd {
+    toolVersion = libs.versions.pmd.get()
     isConsoleOutput = true
-    toolVersion = "6.54.0"
     ruleSetFiles = files("config/pmd/pmd.xml")
     ruleSets = listOf()
 }
@@ -174,8 +174,8 @@ tasks.withType<SonarTask>().configureEach {
 
 pitest {
     verbosity.set("DEFAULT")
-    junit5PluginVersion.set("1.2.0")
-    pitestVersion.set("1.14.1")
+    junit5PluginVersion.set(libs.versions.pitest.junit5Plugin.get())
+    pitestVersion.set(libs.versions.pitest.core.get())
     threads.set(4)
     if (System.getenv("STRYKER_DASHBOARD_API_KEY") != null) {
         outputFormats.set(setOf("stryker-dashboard"))
