@@ -27,6 +27,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTestBase {
 
     @Test
+    void propertiesDefaultValueShouldBeUsed() {
+        assertWithTestConfig()
+            .run(context -> assertThat(context.getBean(DatabaseStructureHealthProperties.class))
+                .isInstanceOf(DatabaseStructureHealthProperties.class)
+                .satisfies(p -> assertThat(p.isEnabled()).isTrue()));
+    }
+
+    @Test
     void withoutDataSource() {
         assertWithTestConfig()
             .run(context -> assertThat(context.getBeanDefinitionNames())
@@ -82,10 +90,14 @@ class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTest
         assertWithTestConfig()
             .withPropertyValues("pg.index.health.test.enabled=false")
             .withInitializer(AutoConfigurationTestBase::initialize)
-            .run(context -> assertThat(context.getBeanDefinitionNames())
-                .isNotEmpty()
-                .filteredOn(beanNamesFilter)
-                .isEmpty());
+            .run(context -> {
+                assertThat(context.getBeansOfType(DatabaseStructureHealthProperties.class))
+                    .isEmpty();
+                assertThat(context.getBeanDefinitionNames())
+                    .isNotEmpty()
+                    .filteredOn(beanNamesFilter)
+                    .isEmpty();
+            });
     }
 
     @Test

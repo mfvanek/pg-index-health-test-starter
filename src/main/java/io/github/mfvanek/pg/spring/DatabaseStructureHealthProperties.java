@@ -11,6 +11,7 @@ package io.github.mfvanek.pg.spring;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 /**
  * Represents properties for managing pg-index-health-test-starter configuration.
@@ -27,7 +28,7 @@ public class DatabaseStructureHealthProperties {
      */
     private final boolean enabled;
 
-    public DatabaseStructureHealthProperties(final boolean enabled) {
+    public DatabaseStructureHealthProperties(@DefaultValue("true") final boolean enabled) {
         this.enabled = enabled;
     }
 
