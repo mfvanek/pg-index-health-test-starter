@@ -163,7 +163,7 @@ tasks.withType<SpotBugsTask>().configureEach {
     }
 }
 
-sonarqube {
+sonar {
     properties {
         property("sonar.projectKey", "mfvanek_pg-index-health-test-starter")
         property("sonar.organization", "mfvanek")
