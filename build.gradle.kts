@@ -1,3 +1,4 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import com.github.spotbugs.snom.Confidence
 import com.github.spotbugs.snom.Effort
 import com.github.spotbugs.snom.SpotBugsTask
@@ -13,9 +14,10 @@ plugins {
     id("com.github.spotbugs") version "5.0.14"
     id("checkstyle")
     id("pmd")
-    id("org.sonarqube") version "4.2.1.3168"
+    id("org.sonarqube") version "4.3.0.3225"
     id("info.solidsoft.pitest") version "1.9.11"
     id("net.ltgt.errorprone") version "3.1.0"
+    id("com.github.ben-manes.versions") version "0.47.0"
 }
 
 group = "io.github.mfvanek"
@@ -161,7 +163,7 @@ tasks.withType<SpotBugsTask>().configureEach {
     }
 }
 
-sonarqube {
+sonar {
     properties {
         property("sonar.projectKey", "mfvanek_pg-index-health-test-starter")
         property("sonar.organization", "mfvanek")
@@ -253,5 +255,21 @@ signing {
     if (!version.toString().endsWith("SNAPSHOT")) {
         useGpgCmd()
         sign(publishing.publications["mavenJava"])
+    }
+}
+
+fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
+}
+
+tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
+    checkForGradleUpdate = true
+    gradleReleaseChannel = "current"
+    checkConstraints = true
+    rejectVersionIf {
+        isNonStable(candidate.version)
     }
 }
