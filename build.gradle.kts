@@ -37,13 +37,15 @@ dependencies {
     testImplementation(libs.spring.boot.starterTest)
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.apache.commons:commons-text:1.10.0")
+    testImplementation("com.google.code.findbugs:jsr305:3.0.2")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.postgresql:postgresql:42.6.0")
+
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher") {
         because("required for pitest")
     }
-    testImplementation("org.apache.commons:commons-text:1.10.0")
-    testImplementation("com.google.code.findbugs:jsr305:3.0.2")
-    testImplementation("org.assertj:assertj-core:3.24.2")
 
     pitest(libs.pitest.dashboard.reporter)
     checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")

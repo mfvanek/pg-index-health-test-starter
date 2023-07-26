@@ -30,6 +30,7 @@ import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHost;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.postgresql.Driver;
 import org.springframework.boot.test.context.FilteredClassLoader;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,6 +43,18 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
         assertThatCode(() -> assertWithTestConfig()
             .withInitializer(AutoConfigurationTestBase::initialize)
             .withClassLoader(new FilteredClassLoader(PgConnection.class))
+            .run(context -> assertThat(context.getBeanDefinitionNames())
+                .isNotEmpty()
+                .filteredOn(beanNamesFilter)
+                .isEmpty())
+        ).doesNotThrowAnyException();
+    }
+
+    @Test
+    void withoutPostgresDriverOnClasspath() {
+        assertThatCode(() -> assertWithTestConfig()
+            .withInitializer(AutoConfigurationTestBase::initialize)
+            .withClassLoader(new FilteredClassLoader(Driver.class))
             .run(context -> assertThat(context.getBeanDefinitionNames())
                 .isNotEmpty()
                 .filteredOn(beanNamesFilter)

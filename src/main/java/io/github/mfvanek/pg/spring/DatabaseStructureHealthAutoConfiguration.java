@@ -59,7 +59,7 @@ import javax.sql.DataSource;
 @SuppressWarnings({"checkstyle:ClassDataAbstractionCoupling", "checkstyle:ClassFanOutComplexity"})
 @AutoConfiguration
 @EnableConfigurationProperties(DatabaseStructureHealthProperties.class)
-@ConditionalOnClass(DataSource.class)
+@ConditionalOnClass(value = DataSource.class, name = "org.postgresql.Driver")
 @ConditionalOnProperty(name = "pg.index.health.test.enabled", matchIfMissing = true, havingValue = "true")
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class DatabaseStructureHealthAutoConfiguration {
