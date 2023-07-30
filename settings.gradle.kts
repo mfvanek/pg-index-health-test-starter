@@ -1,4 +1,4 @@
-rootProject.name = "pg-index-health-test-starter"
+rootProject.name = "pg-index-health-test-starter-build"
 
 dependencyResolutionManagement {
     versionCatalogs {
@@ -21,3 +21,4 @@ dependencyResolutionManagement {
         }
     }
 }
+include("pg-index-health-test-starter")
