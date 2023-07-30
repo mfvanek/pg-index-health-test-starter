@@ -24,43 +24,16 @@ import io.github.mfvanek.pg.checks.host.TablesWithMissingIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithoutDescriptionCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithoutPrimaryKeyCheckOnHost;
 import io.github.mfvanek.pg.checks.host.UnusedIndexesCheckOnHost;
-import io.github.mfvanek.pg.connection.PgConnection;
 import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHost;
 import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHost;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.postgresql.Driver;
 import org.springframework.boot.test.context.FilteredClassLoader;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 
 class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigurationTestBase {
-
-    @Test
-    void withoutPgConnectionClass() {
-        assertThatCode(() -> assertWithTestConfig()
-            .withInitializer(AutoConfigurationTestBase::initialize)
-            .withClassLoader(new FilteredClassLoader(PgConnection.class))
-            .run(context -> assertThat(context.getBeanDefinitionNames())
-                .isNotEmpty()
-                .filteredOn(beanNamesFilter)
-                .isEmpty())
-        ).doesNotThrowAnyException();
-    }
-
-    @Test
-    void withoutPostgresDriverOnClasspath() {
-        assertThatCode(() -> assertWithTestConfig()
-            .withInitializer(AutoConfigurationTestBase::initialize)
-            .withClassLoader(new FilteredClassLoader(Driver.class))
-            .run(context -> assertThat(context.getBeanDefinitionNames())
-                .isNotEmpty()
-                .filteredOn(beanNamesFilter)
-                .isEmpty())
-        ).doesNotThrowAnyException();
-    }
 
     @ParameterizedTest
     @ValueSource(classes = {
@@ -96,5 +69,21 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
                     .allSatisfy(beanName ->
                         assertThatBeanIsNotNullBean(context, beanName)))
             );
+    }
+
+    @Test
+    void withDataSourceAndEmptyConnectionStringAndWithoutDriver() {
+        assertWithTestConfig()
+            .withPropertyValues("spring.datasource.url=")
+            .withInitializer(AutoConfigurationTestBase::initialize)
+            .withClassLoader(new FilteredClassLoader(org.postgresql.Driver.class))
+            .run(context -> {
+                assertThat(context.getBeansOfType(DatabaseStructureHealthProperties.class))
+                    .isEmpty();
+                assertThat(context.getBeanDefinitionNames())
+                    .isNotEmpty()
+                    .filteredOn(beanNamesFilter)
+                    .isEmpty();
+            });
     }
 }

@@ -86,6 +86,21 @@ class DatabaseStructureHealthAutoConfigurationTest extends AutoConfigurationTest
     }
 
     @Test
+    void withDataSourceAndWrongConnectionString() {
+        assertWithTestConfig()
+            .withPropertyValues("spring.datasource.url=jdbc:mysql://localhost/test")
+            .withInitializer(AutoConfigurationTestBase::initialize)
+            .run(context -> {
+                assertThat(context.getBeansOfType(DatabaseStructureHealthProperties.class))
+                    .isEmpty();
+                assertThat(context.getBeanDefinitionNames())
+                    .isNotEmpty()
+                    .filteredOn(beanNamesFilter)
+                    .isEmpty();
+            });
+    }
+
+    @Test
     void shouldNotCreateAutoConfigurationWithDisabledProperty() {
         assertWithTestConfig()
             .withPropertyValues("pg.index.health.test.enabled=false")

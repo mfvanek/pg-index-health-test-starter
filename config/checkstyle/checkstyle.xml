@@ -112,7 +112,7 @@
         <module name="TodoComment"/>
         <!-- <module name="TrailingComment"/> invalid -->
         <module name="TypecastParenPad"/>
-        <module name="UncommentedMain"/>
+        <!-- <module name="UncommentedMain"/> invalid -->
         <module name="UnnecessaryParentheses"/>
         <module name="UnnecessarySemicolonInEnumeration"/>
         <module name="UnnecessarySemicolonInTryWithResources"/>

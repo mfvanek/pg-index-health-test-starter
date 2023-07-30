@@ -167,6 +167,7 @@ sonar {
         property("sonar.projectKey", "mfvanek_pg-index-health-test-starter")
         property("sonar.organization", "mfvanek")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.exclusions", "**/build.gradle.kts")
     }
 }
 
@@ -183,5 +184,12 @@ tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
     checkConstraints = true
     rejectVersionIf {
         isNonStable(candidate.version)
+    }
+}
+
+// To avoid creation of jar's in build folder in the root
+tasks {
+    jar {
+        isEnabled = false
     }
 }

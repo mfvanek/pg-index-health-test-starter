@@ -1,5 +1,7 @@
 import info.solidsoft.gradle.pitest.PitestTask
 
+// TODO add description and customize publishing
+
 plugins {
     id("java-library")
     id("maven-publish")
@@ -8,17 +10,17 @@ plugins {
 }
 
 dependencies {
-    api("io.github.mfvanek:pg-index-health:0.9.3")
+    api(rootProject.libs.pg.index.health.core)
     implementation(libs.spring.boot.starter)
+    implementation("com.google.code.findbugs:jsr305:3.0.2")
     annotationProcessor(libs.spring.boot.autoconfigureProcessor)
     annotationProcessor(libs.spring.boot.configurationProcessor)
 
     testImplementation(libs.spring.boot.starterTest)
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.apache.commons:commons-text:1.10.0")
-    testImplementation("com.google.code.findbugs:jsr305:3.0.2")
-    testImplementation("org.assertj:assertj-core:3.24.2")
-    testImplementation("org.postgresql:postgresql:42.6.0")
+    testImplementation(rootProject.libs.assertj.core)
+    testImplementation(rootProject.libs.database.postgresql)
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher") {

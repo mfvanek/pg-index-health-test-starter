@@ -44,6 +44,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -60,12 +61,12 @@ import javax.sql.DataSource;
 @AutoConfiguration
 @EnableConfigurationProperties(DatabaseStructureHealthProperties.class)
 @ConditionalOnClass(value = DataSource.class, name = "org.postgresql.Driver")
+@Conditional(DatabaseStructureHealthCondition.class)
 @ConditionalOnProperty(name = "pg.index.health.test.enabled", matchIfMissing = true, havingValue = "true")
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class DatabaseStructureHealthAutoConfiguration {
 
     @Bean
-    @ConditionalOnClass(PgConnection.class)
     @ConditionalOnBean(name = "dataSource")
     @ConditionalOnMissingBean
     public PgConnection pgConnection(@Qualifier("dataSource") final DataSource dataSource,
