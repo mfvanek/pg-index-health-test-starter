@@ -1,6 +1,6 @@
 import info.solidsoft.gradle.pitest.PitestTask
 
-// TODO add description and customize publishing
+description = "Spring Boot Starter for pg-index-health library"
 
 plugins {
     id("java-library")
@@ -65,7 +65,7 @@ publishing {
 
             pom {
                 name.set(project.name)
-                description.set("Spring Boot Starter for pg-index-health library")
+                description.set(project.provider(project::getDescription))
                 url.set("https://github.com/mfvanek/pg-index-health-test-starter")
                 licenses {
                     license {
