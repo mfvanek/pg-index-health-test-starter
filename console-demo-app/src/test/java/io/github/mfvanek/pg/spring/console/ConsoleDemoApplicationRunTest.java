@@ -7,7 +7,7 @@
  * Licensed under the Apache License 2.0
  */
 
-package io.github.mfvanek.pg.spring.h2;
+package io.github.mfvanek.pg.spring.console;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,14 +18,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 @ExtendWith(OutputCaptureExtension.class)
-class H2DemoApplicationRunTest {
+class ConsoleDemoApplicationRunTest {
 
     @Test
     void applicationShouldRun(final CapturedOutput output) {
-        assertThatCode(() -> H2DemoApplication.main(new String[]{}))
+        assertThatCode(() -> ConsoleDemoApplication.main(new String[]{}))
             .doesNotThrowAnyException();
         assertThat(output.getAll())
-            .contains("Starting H2DemoApplication using Java")
-            .contains("Started H2DemoApplication in");
+            .contains("Starting ConsoleDemoApplication using Java")
+            .contains("Started ConsoleDemoApplication in");
     }
 }

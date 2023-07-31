@@ -6,9 +6,7 @@ plugins {
 
 dependencies {
     implementation(project(":pg-index-health-test-starter"))
-    implementation(rootProject.libs.spring.boot.starterDataJdbc)
-
-    runtimeOnly(rootProject.libs.database.h2)
+    implementation(rootProject.libs.spring.boot.starter)
 
     testImplementation(rootProject.libs.spring.boot.starterTest)
     testImplementation(rootProject.libs.assertj.core)

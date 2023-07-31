@@ -6,6 +6,9 @@ dependencyResolutionManagement {
             val springBoot = version("spring-boot", "2.7.14")
             plugin("spring-boot-gradlePlugin", "org.springframework.boot")
                 .versionRef(springBoot)
+            val dependencyManagement = version("spring-dependency-management", "1.1.2")
+            plugin("spring-dependency-management", "io.spring.dependency-management")
+                .versionRef(dependencyManagement)
             library("spring-boot-starter", "org.springframework.boot", "spring-boot-starter")
                 .versionRef(springBoot)
             library("spring-boot-starterTest", "org.springframework.boot", "spring-boot-starter-test")
@@ -34,3 +37,4 @@ dependencyResolutionManagement {
 
 include("pg-index-health-test-starter")
 include("h2-demo-app")
+include("console-demo-app")
