@@ -8,7 +8,7 @@ import org.sonarqube.gradle.SonarTask
 plugins {
     id("java")
     id("jacoco")
-    id("com.github.spotbugs") version "5.0.14"
+    id("com.github.spotbugs") version "5.1.1"
     id("checkstyle")
     id("pmd")
     id("org.sonarqube") version "4.3.0.3225"
@@ -41,7 +41,7 @@ subprojects {
         testImplementation(platform("org.junit:junit-bom:5.10.0"))
 
         checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")
-        errorprone("com.google.errorprone:error_prone_core:2.20.0")
+        errorprone("com.google.errorprone:error_prone_core:2.21.0")
     }
 
     java {
