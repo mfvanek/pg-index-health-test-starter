@@ -28,7 +28,7 @@ dependencyResolutionManagement {
             library("database-h2", "com.h2database:h2:2.2.220")
             library("database-postgresql", "org.postgresql:postgresql:42.6.0")
             library("assertj-core", "org.assertj:assertj-core:3.24.2")
-            val pgIndexHealth = version("pg-index-health", "0.9.3")
+            val pgIndexHealth = version("pg-index-health", "0.9.4")
             library("pg-index-health-core", "io.github.mfvanek", "pg-index-health")
                 .versionRef(pgIndexHealth)
             library("pg-index-health-testing", "io.github.mfvanek", "pg-index-health-testing")
