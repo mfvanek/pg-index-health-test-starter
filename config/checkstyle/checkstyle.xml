@@ -55,7 +55,7 @@
         <module name="FinalLocalVariable"/>
         <module name="FinalParameters"/>
         <!-- <module name="HiddenField"/> invalid -->
-        <module name="HideUtilityClassConstructor"/>
+        <!-- <module name="HideUtilityClassConstructor"/> invalid -->
         <module name="IllegalCatch"/>
         <module name="IllegalIdentifierName"/>
         <module name="IllegalInstantiation"/>

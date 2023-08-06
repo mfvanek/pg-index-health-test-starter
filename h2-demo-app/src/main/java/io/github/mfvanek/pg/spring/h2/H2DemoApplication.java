@@ -12,7 +12,6 @@ package io.github.mfvanek.pg.spring.h2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SuppressWarnings("checkstyle:HideUtilityClassConstructor")
 @SpringBootApplication
 public class H2DemoApplication {
 

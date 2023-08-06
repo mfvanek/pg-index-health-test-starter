@@ -2,6 +2,7 @@ plugins {
     id("java")
     alias(libs.plugins.spring.boot.gradlePlugin)
     alias(libs.plugins.spring.dependency.management)
+    id("io.freefair.lombok") version "8.1.0"
 }
 
 dependencies {
