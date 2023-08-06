@@ -8,4 +8,8 @@
         <Bug pattern="DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED"/>
         <Class name="io.github.mfvanek.pg.spring.DatabaseStructureHealthAutoConfigurationFilteringTest"/>
     </Match>
+    <Match>
+        <Bug pattern="BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"/>
+        <Class name="io.github.mfvanek.pg.spring.postgres.config.DatabaseConfig"/>
+    </Match>
 </FindBugsFilter>

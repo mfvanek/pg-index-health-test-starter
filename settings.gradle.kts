@@ -31,6 +31,8 @@ dependencyResolutionManagement {
             val pgIndexHealth = version("pg-index-health", "0.9.3")
             library("pg-index-health-core", "io.github.mfvanek", "pg-index-health")
                 .versionRef(pgIndexHealth)
+            library("pg-index-health-testing", "io.github.mfvanek", "pg-index-health-testing")
+                .versionRef(pgIndexHealth)
         }
     }
 }
@@ -38,3 +40,4 @@ dependencyResolutionManagement {
 include("pg-index-health-test-starter")
 include("h2-demo-app")
 include("console-demo-app")
+include("postgres-demo-app")
