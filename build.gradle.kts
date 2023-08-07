@@ -41,7 +41,7 @@ subprojects {
         testImplementation(platform("org.junit:junit-bom:5.10.0"))
 
         checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")
-        errorprone("com.google.errorprone:error_prone_core:2.21.0")
+        errorprone("com.google.errorprone:error_prone_core:2.21.1")
     }
 
     java {
