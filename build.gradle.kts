@@ -8,7 +8,7 @@ import org.sonarqube.gradle.SonarTask
 plugins {
     id("java")
     id("jacoco")
-    id("com.github.spotbugs") version "5.1.2"
+    id("com.github.spotbugs") version "5.1.3"
     id("checkstyle")
     id("pmd")
     id("org.sonarqube") version "4.3.0.3225"
