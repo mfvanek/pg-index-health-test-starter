@@ -13,7 +13,7 @@ plugins {
     id("pmd")
     id("org.sonarqube") version "4.3.1.3277"
     id("net.ltgt.errorprone") version "3.1.0"
-    id("com.github.ben-manes.versions") version "0.47.0"
+    id("com.github.ben-manes.versions") version "0.48.0"
 }
 
 description = "pg-index-health-test-starter build"
