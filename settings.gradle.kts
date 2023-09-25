@@ -25,7 +25,7 @@ dependencyResolutionManagement {
             library("pitest-dashboard-reporter", "it.mulders.stryker:pit-dashboard-reporter:0.2.1")
             version("pitest-junit5Plugin", "1.2.0")
             version("pitest-core", "1.14.2")
-            library("database-h2", "com.h2database:h2:2.2.222")
+            library("database-h2", "com.h2database:h2:2.2.224")
             library("database-postgresql", "org.postgresql:postgresql:42.6.0")
             library("assertj-core", "org.assertj:assertj-core:3.24.2")
             val pgIndexHealth = version("pg-index-health", "0.9.4")
