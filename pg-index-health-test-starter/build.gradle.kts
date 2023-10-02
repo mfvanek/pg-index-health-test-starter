@@ -6,7 +6,7 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("signing")
-    id("info.solidsoft.pitest") version "1.9.11"
+    id("info.solidsoft.pitest") version "1.15.0"
 }
 
 dependencies {
