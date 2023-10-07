@@ -3,10 +3,10 @@ rootProject.name = "pg-index-health-test-starter-build"
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            val springBoot = version("spring-boot", "2.7.14")
+            val springBoot = version("spring-boot", "2.7.16")
             plugin("spring-boot-gradlePlugin", "org.springframework.boot")
                 .versionRef(springBoot)
-            val dependencyManagement = version("spring-dependency-management", "1.1.2")
+            val dependencyManagement = version("spring-dependency-management", "1.1.3")
             plugin("spring-dependency-management", "io.spring.dependency-management")
                 .versionRef(dependencyManagement)
             library("spring-boot-starter", "org.springframework.boot", "spring-boot-starter")
@@ -24,7 +24,7 @@ dependencyResolutionManagement {
             version("jacoco", "0.8.10")
             library("pitest-dashboard-reporter", "it.mulders.stryker:pit-dashboard-reporter:0.2.1")
             version("pitest-junit5Plugin", "1.2.0")
-            version("pitest-core", "1.14.2")
+            version("pitest-core", "1.15.0")
             library("database-h2", "com.h2database:h2:2.2.224")
             library("database-postgresql", "org.postgresql:postgresql:42.6.0")
             library("assertj-core", "org.assertj:assertj-core:3.24.2")

@@ -11,7 +11,7 @@ plugins {
     id("com.github.spotbugs") version "5.1.3"
     id("checkstyle")
     id("pmd")
-    id("org.sonarqube") version "4.4.0.3356"
+    id("org.sonarqube") version "4.4.1.3373"
     id("net.ltgt.errorprone") version "3.1.0"
     id("com.github.ben-manes.versions") version "0.48.0"
 }
