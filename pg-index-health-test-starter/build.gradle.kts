@@ -6,7 +6,7 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("signing")
-    id("info.solidsoft.pitest") version "1.9.11"
+    id("info.solidsoft.pitest") version "1.15.0"
 }
 
 dependencies {
@@ -23,9 +23,6 @@ dependencies {
     testImplementation(rootProject.libs.database.postgresql)
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher") {
-        because("required for pitest")
-    }
 
     pitest(libs.pitest.dashboard.reporter)
 }
