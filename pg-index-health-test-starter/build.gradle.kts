@@ -11,12 +11,12 @@ plugins {
 
 dependencies {
     api(rootProject.libs.pg.index.health.core)
-    implementation(libs.spring.boot.starter)
+    implementation(libs.spring.boot.starter.root)
     implementation("com.google.code.findbugs:jsr305:3.0.2")
-    annotationProcessor(libs.spring.boot.autoconfigureProcessor)
-    annotationProcessor(libs.spring.boot.configurationProcessor)
+    annotationProcessor(libs.spring.boot.autoconfigure.processor)
+    annotationProcessor(libs.spring.boot.configuration.processor)
 
-    testImplementation(libs.spring.boot.starterTest)
+    testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.apache.commons:commons-text:1.10.0")
     testImplementation(rootProject.libs.assertj.core)
