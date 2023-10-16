@@ -33,7 +33,7 @@ dependencyResolutionManagement {
                 .versionRef(pgIndexHealth)
             library("pg-index-health-testing", "io.github.mfvanek", "pg-index-health-testing")
                 .versionRef(pgIndexHealth)
-            library("slf4j-simple", "org.slf4j:slf4j-simple:1.7.36") // to be compatible with Spring Boot 2.7.X
+            library("slf4j-simple", "org.slf4j:slf4j-simple:2.0.9") // to be compatible with Spring Boot 2.7.X
         }
     }
 }
