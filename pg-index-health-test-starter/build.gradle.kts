@@ -18,7 +18,7 @@ dependencies {
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.apache.commons:commons-text:1.10.0")
+    testImplementation("org.apache.commons:commons-text:1.11.0")
     testImplementation(rootProject.libs.assertj.core)
     testImplementation(rootProject.libs.database.postgresql)
 
