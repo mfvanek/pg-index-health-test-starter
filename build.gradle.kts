@@ -38,7 +38,7 @@ subprojects {
     apply(plugin = "net.ltgt.errorprone")
 
     dependencies {
-        testImplementation(platform("org.junit:junit-bom:5.10.0"))
+        testImplementation(platform("org.junit:junit-bom:5.10.1"))
 
         checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")
         errorprone("com.google.errorprone:error_prone_core:2.23.0")
