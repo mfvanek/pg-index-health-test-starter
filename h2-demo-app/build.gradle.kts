@@ -1,5 +1,5 @@
 plugins {
-    id("java")
+    id("pg-index-health-test-starter.java-conventions")
     alias(libs.plugins.spring.boot.gradlePlugin)
     alias(libs.plugins.spring.dependency.management)
 }

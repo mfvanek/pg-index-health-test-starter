@@ -3,10 +3,16 @@ import info.solidsoft.gradle.pitest.PitestTask
 description = "Spring Boot Starter for pg-index-health library"
 
 plugins {
+    id("pg-index-health-test-starter.java-conventions")
     id("java-library")
     id("maven-publish")
     id("signing")
     id("info.solidsoft.pitest") version "1.15.0"
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
@@ -18,7 +24,7 @@ dependencies {
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.apache.commons:commons-text:1.11.0")
+    testImplementation("org.apache.commons:commons-text:1.11.0") // TODO remove!
     testImplementation(rootProject.libs.assertj.core)
     testImplementation(rootProject.libs.database.postgresql)
 
