@@ -16,7 +16,7 @@ java {
 }
 
 dependencies {
-    api(rootProject.libs.pg.index.health.core)
+    api(libs.pg.index.health.core)
     implementation(libs.spring.boot.starter.root)
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     annotationProcessor(libs.spring.boot.autoconfigure.processor)
@@ -24,9 +24,9 @@ dependencies {
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.apache.commons:commons-text:1.11.0") // TODO remove!
-    testImplementation(rootProject.libs.assertj.core)
-    testImplementation(rootProject.libs.database.postgresql)
+    testImplementation(libs.commons.lang3)
+    testImplementation(libs.assertj.core)
+    testImplementation(libs.database.postgresql)
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 

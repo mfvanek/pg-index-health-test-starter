@@ -5,18 +5,20 @@ plugins {
     id("io.freefair.lombok") version "8.4"
 }
 
+ext["commons-lang3.version"] = libs.versions.commons.lang3.get()
+
 dependencies {
     implementation(project(":pg-index-health-test-starter"))
     implementation("com.google.code.findbugs:jsr305:3.0.2")
-    implementation(rootProject.libs.spring.boot.starter.data.jdbc)
-    implementation(rootProject.libs.pg.index.health.testing)
+    implementation(libs.spring.boot.starter.data.jdbc)
+    implementation(libs.pg.index.health.testing)
     implementation(platform("org.testcontainers:testcontainers-bom:1.19.1"))
     implementation("org.testcontainers:postgresql")
 
-    runtimeOnly(rootProject.libs.database.postgresql)
+    runtimeOnly(libs.database.postgresql)
 
-    testImplementation(rootProject.libs.spring.boot.starter.test)
-    testImplementation(rootProject.libs.assertj.core)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.assertj.core)
 
-    spotbugsSlf4j(rootProject.libs.slf4j.simple)
+    spotbugsSlf4j(libs.slf4j.simple)
 }

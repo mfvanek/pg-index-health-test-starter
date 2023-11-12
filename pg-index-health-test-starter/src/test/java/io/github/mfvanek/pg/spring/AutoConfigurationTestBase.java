@@ -13,7 +13,7 @@ import io.github.mfvanek.pg.common.maintenance.DatabaseCheckOnHost;
 import io.github.mfvanek.pg.connection.PgConnection;
 import io.github.mfvanek.pg.settings.maintenance.ConfigurationMaintenanceOnHost;
 import io.github.mfvanek.pg.statistics.maintenance.StatisticsMaintenanceOnHost;
-import org.apache.commons.text.WordUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -67,7 +67,7 @@ abstract class AutoConfigurationTestBase {
 
     @Nonnull
     protected static String getBeanName(@Nonnull final Class<?> type) {
-        return WordUtils.uncapitalize(type.getSimpleName());
+        return StringUtils.uncapitalize(type.getSimpleName());
     }
 
     protected void assertThatBeansAreNotNullBean(@Nonnull final ConfigurableApplicationContext context) {
