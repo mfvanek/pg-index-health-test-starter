@@ -10,7 +10,7 @@ dependencies {
     implementation(project(":pg-index-health-test-starter"))
     implementation(libs.spring.boot.starter.data.jdbc)
 
-    runtimeOnly(libs.database.h2)
+    runtimeOnly("com.h2database:h2")
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.assertj.core)

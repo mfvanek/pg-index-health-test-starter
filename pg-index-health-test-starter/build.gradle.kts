@@ -30,7 +30,7 @@ dependencies {
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    pitest(libs.pitest.dashboard.reporter)
+    pitest("it.mulders.stryker:pit-dashboard-reporter:0.2.1")
 }
 
 pitest {
