@@ -12,7 +12,7 @@ dependencies {
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     implementation(libs.spring.boot.starter.data.jdbc)
     implementation(libs.pg.index.health.testing)
-    implementation(platform("org.testcontainers:testcontainers-bom:1.19.1"))
+    implementation(platform("org.testcontainers:testcontainers-bom:1.19.2"))
     implementation("org.testcontainers:postgresql")
 
     runtimeOnly(libs.database.postgresql)
