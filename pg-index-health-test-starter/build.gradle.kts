@@ -3,14 +3,20 @@ import info.solidsoft.gradle.pitest.PitestTask
 description = "Spring Boot Starter for pg-index-health library"
 
 plugins {
+    id("pg-index-health-test-starter.java-conventions")
     id("java-library")
     id("maven-publish")
     id("signing")
     id("info.solidsoft.pitest") version "1.15.0"
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 dependencies {
-    api(rootProject.libs.pg.index.health.core)
+    api(libs.pg.index.health.core)
     implementation(libs.spring.boot.starter.root)
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     annotationProcessor(libs.spring.boot.autoconfigure.processor)
@@ -18,13 +24,13 @@ dependencies {
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.apache.commons:commons-text:1.11.0")
-    testImplementation(rootProject.libs.assertj.core)
-    testImplementation(rootProject.libs.database.postgresql)
+    testImplementation(libs.commons.lang3)
+    testImplementation(libs.assertj.core)
+    testImplementation(libs.database.postgresql)
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    pitest(libs.pitest.dashboard.reporter)
+    pitest("it.mulders.stryker:pit-dashboard-reporter:0.2.1")
 }
 
 pitest {
