@@ -3,7 +3,7 @@ spring-boot = "2.7.17"
 pitest-junit5Plugin = "1.2.1"
 pitest-core = "1.15.3"
 pg-index-health = "0.10.1"
-commons-lang3 = "3.13.0"
+commons-lang3 = "3.14.0"
 
 [libraries]
 junit-bom = "org.junit:junit-bom:5.10.1"
