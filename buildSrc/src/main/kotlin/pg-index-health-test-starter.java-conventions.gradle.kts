@@ -26,6 +26,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.add("-parameters")
     options.errorprone {
         disableWarningsInGeneratedCode.set(true)
     }
