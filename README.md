@@ -1,4 +1,5 @@
 # pg-index-health-test-starter
+
 Spring Boot Starter for using [pg-index-health](https://github.com/mfvanek/pg-index-health) library in tests.
 
 [![Java CI](https://github.com/mfvanek/pg-index-health-test-starter/workflows/Java%20CI/badge.svg)](https://github.com/mfvanek/pg-index-health-test-starter/actions "Java CI")
@@ -20,31 +21,38 @@ Spring Boot Starter for using [pg-index-health](https://github.com/mfvanek/pg-in
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/6291/badge)](https://www.bestpractices.dev/projects/6291)
 
 ## Installation
+
 Using Gradle:
+
 ```groovy
-testImplementation 'io.github.mfvanek:pg-index-health-test-starter:0.10.1'
+testImplementation 'io.github.mfvanek:pg-index-health-test-starter:0.10.2'
 ```
 
 <details>
 <summary>with Kotlin DSL</summary>
 
 ```kotlin
-testImplementation("io.github.mfvanek:pg-index-health-test-starter:0.10.1")
+testImplementation("io.github.mfvanek:pg-index-health-test-starter:0.10.2")
 ```
+
 </details>
 
 Using Maven:
+
 ```xml
+
 <dependency>
-  <groupId>io.github.mfvanek</groupId>
-  <artifactId>pg-index-health-test-starter</artifactId>
-  <version>0.10.1</version>
-  <scope>test</scope>
+    <groupId>io.github.mfvanek</groupId>
+    <artifactId>pg-index-health-test-starter</artifactId>
+    <version>0.10.2</version>
+    <scope>test</scope>
 </dependency>
 ```
 
 ## Compatibility
+
 ### Java versions
+
 Requires [Java 11](https://www.java.com/en/)  
 For **Java 8** compatible version take a look at release [0.7.0](https://github.com/mfvanek/pg-index-health-test-starter/releases/tag/v.0.7.0) and lower
 
@@ -58,4 +66,6 @@ For **Java 8** compatible version take a look at release [0.7.0](https://github.
 | 2.7.x       | 11      | 0.8.x — 0.10.x               |
 
 #### Spring Boot 3 compatibility
-Starting from **0.9.0.1** added support for Spring Boot 3
+
+* Starting from **0.9.0.1** added support for Spring Boot 3.0
+* Starting from **0.10.2** added support for [Spring Boot 3.2](https://github.com/spring-projects/spring-framework/wiki/Upgrading-to-Spring-Framework-6.x#parameter-name-retention)
