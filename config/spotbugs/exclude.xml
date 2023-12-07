@@ -12,4 +12,7 @@
         <Bug pattern="BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"/>
         <Class name="io.github.mfvanek.pg.spring.postgres.config.DatabaseConfig"/>
     </Match>
+    <Match>
+        <Bug pattern="SLF4J_LOGGER_SHOULD_BE_NON_STATIC"/>
+    </Match>
 </FindBugsFilter>
