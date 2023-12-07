@@ -35,4 +35,11 @@ public class DatabaseStructureHealthProperties {
     public boolean isEnabled() {
         return enabled;
     }
+
+    @Override
+    public String toString() {
+        return DatabaseStructureHealthProperties.class.getSimpleName() + '{' +
+            "enabled=" + enabled +
+            '}';
+    }
 }
