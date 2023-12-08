@@ -20,9 +20,13 @@ class DatabaseStructureHealthPropertiesTest {
         final DatabaseStructureHealthProperties propertiesEnabled = new DatabaseStructureHealthProperties(true);
         assertThat(propertiesEnabled.isEnabled())
             .isTrue();
+        assertThat(propertiesEnabled)
+            .hasToString("DatabaseStructureHealthProperties{enabled=true}");
 
         final DatabaseStructureHealthProperties propertiesDisabled = new DatabaseStructureHealthProperties(false);
         assertThat(propertiesDisabled.isEnabled())
             .isFalse();
+        assertThat(propertiesDisabled)
+            .hasToString("DatabaseStructureHealthProperties{enabled=false}");
     }
 }

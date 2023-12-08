@@ -15,4 +15,12 @@
     <Match>
         <Bug pattern="SLF4J_LOGGER_SHOULD_BE_NON_STATIC"/>
     </Match>
+    <Match>
+        <Bug pattern="PDP_POORLY_DEFINED_PARAMETER"/>
+        <Class name="io.github.mfvanek.pg.spring.AutoConfigurationTestBase"/>
+    </Match>
+    <Match>
+        <Bug pattern="EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS"/>
+        <Class name="io.github.mfvanek.pg.spring.DatabaseStructureHealthAutoConfiguration"/>
+    </Match>
 </FindBugsFilter>
