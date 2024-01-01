@@ -20,7 +20,7 @@
     </module>
     <module name="Header">
         <property name="header"
-              value="/*\n * Copyright (c) 2021-2023. Ivan Vakhrushev.\n * https://github.com/mfvanek/pg-index-health-test-starter\n *\n * This file is a part of &quot;pg-index-health-test-starter&quot;.\n *\n * Licensed under the Apache License 2.0\n */"/>
+              value="/*\n * Copyright (c) 2021-2024. Ivan Vakhrushev.\n * https://github.com/mfvanek/pg-index-health-test-starter\n *\n * This file is a part of &quot;pg-index-health-test-starter&quot;.\n *\n * Licensed under the Apache License 2.0\n */"/>
         <property name="fileExtensions" value="java"/>
     </module>
     <module name="NewlineAtEndOfFile"/>
