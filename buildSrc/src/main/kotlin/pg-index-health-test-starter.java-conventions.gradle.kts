@@ -19,12 +19,12 @@ dependencies {
 
     checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")
 
-    errorprone("com.google.errorprone:error_prone_core:2.23.0")
-    errorprone("jp.skypencil.errorprone.slf4j:errorprone-slf4j:0.1.20")
+    errorprone("com.google.errorprone:error_prone_core:2.24.0")
+    errorprone("jp.skypencil.errorprone.slf4j:errorprone-slf4j:0.1.21")
 
     spotbugsPlugins("jp.skypencil.findbugs.slf4j:bug-pattern:1.5.0")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0")
-    spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.3")
+    spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.4")
 }
 
 java {
@@ -117,7 +117,7 @@ jacoco {
 }
 
 checkstyle {
-    toolVersion = "10.12.5"
+    toolVersion = "10.12.7"
     configFile = file("../config/checkstyle/checkstyle.xml")
     isIgnoreFailures = false
     maxWarnings = 0
