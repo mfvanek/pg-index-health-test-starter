@@ -14,7 +14,7 @@ spring-boot-configuration-processor = { group = "org.springframework.boot", name
 spring-boot-starter-data-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-jdbc", version.ref = "spring-boot" }
 database-postgresql = "org.postgresql:postgresql:42.7.1"
 assertj-core = "org.assertj:assertj-core:3.25.1"
-slf4j-simple = "org.slf4j:slf4j-simple:1.7.36" # to be compatible with Spring Boot 2.7.X
+slf4j-simple = "org.slf4j:slf4j-simple:2.0.11" # to be compatible with Spring Boot 2.7.X
 commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commons-lang3" }
 pg-index-health-model = { group = "io.github.mfvanek", name = "pg-index-health-model", version.ref = "pg-index-health" }
 pg-index-health-core = { group = "io.github.mfvanek", name = "pg-index-health", version.ref = "pg-index-health" }
