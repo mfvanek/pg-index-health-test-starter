@@ -2,14 +2,14 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     id("org.sonarqube")
-    id("com.github.ben-manes.versions") version "0.50.0"
+    id("com.github.ben-manes.versions") version "0.51.0"
 }
 
 description = "pg-index-health-test-starter build"
 
 allprojects {
     group = "io.github.mfvanek"
-    version = "0.10.3"
+    version = "0.10.4-SNAPSHOT"
 
     repositories {
         mavenLocal()
