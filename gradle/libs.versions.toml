@@ -6,7 +6,7 @@ pg-index-health = "0.10.3"
 commons-lang3 = "3.14.0"
 
 [libraries]
-junit-bom = "org.junit:junit-bom:5.10.1"
+junit-bom = "org.junit:junit-bom:5.10.2"
 spring-boot-starter-root = { group = "org.springframework.boot", name = "spring-boot-starter", version.ref = "spring-boot" }
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test", version.ref = "spring-boot" }
 spring-boot-autoconfigure-processor = { group = "org.springframework.boot", name = "spring-boot-autoconfigure-processor", version.ref = "spring-boot" }
