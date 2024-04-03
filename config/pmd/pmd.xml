@@ -13,7 +13,7 @@
 
     <rule ref="category/java/bestpractices.xml/AbstractClassWithoutAbstractMethod">
         <properties>
-            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration['.*TestBase']"/>
+            <property name="violationSuppressXPath" value=".[@SimpleName = 'AutoConfigurationTestBase']"/>
         </properties>
     </rule>
 
@@ -39,7 +39,6 @@
     <rule ref="category/java/codestyle.xml/LinguisticNaming">
         <properties>
             <property name="checkSetters" value="false"/>
-            <property name="violationSuppressXPath" value="//ClassOrInterfaceBodyDeclaration/Annotation/MarkerAnnotation//Name[@Image='Test']"/>
         </properties>
     </rule>
 
@@ -56,12 +55,7 @@
         <exclude name="UseUtilityClass"/>
         <exclude name="ExcessiveImports"/>
         <exclude name="TooManyMethods"/>
-    </rule>
-
-    <rule ref="category/java/design.xml/AbstractClassWithoutAnyMethod">
-        <properties>
-            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration['.*TestBase']"/>
-        </properties>
+        <exclude name="CouplingBetweenObjects"/> <!-- useless -->
     </rule>
 
     <rule ref="category/java/documentation.xml">
@@ -75,7 +69,5 @@
 
     <rule ref="category/java/security.xml"/>
 
-    <rule ref="category/java/errorprone.xml">
-        <exclude name="DataflowAnomalyAnalysis"/>
-    </rule>
+    <rule ref="category/java/errorprone.xml"/>
 </ruleset>

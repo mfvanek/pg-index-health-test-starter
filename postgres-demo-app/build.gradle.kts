@@ -22,3 +22,7 @@ dependencies {
 
     spotbugsSlf4j(libs.slf4j.simple)
 }
+
+lombok {
+    version = "1.18.32"
+}
