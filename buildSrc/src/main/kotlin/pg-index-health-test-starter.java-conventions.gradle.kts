@@ -14,16 +14,20 @@ plugins {
     id("net.ltgt.errorprone")
 }
 
+val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.1"))
+    versionCatalog.findLibrary("junit-bom").ifPresent {
+        testImplementation(platform(it))
+    }
 
     checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")
 
-    errorprone("com.google.errorprone:error_prone_core:2.24.1")
-    errorprone("jp.skypencil.errorprone.slf4j:errorprone-slf4j:0.1.22")
+    errorprone("com.google.errorprone:error_prone_core:2.26.1")
+    errorprone("jp.skypencil.errorprone.slf4j:errorprone-slf4j:0.1.23")
 
     spotbugsPlugins("jp.skypencil.findbugs.slf4j:bug-pattern:1.5.0")
-    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0")
+    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0")
     spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.4")
 }
 
@@ -113,11 +117,11 @@ tasks {
 }
 
 jacoco {
-    toolVersion = "0.8.11"
+    toolVersion = "0.8.12"
 }
 
 checkstyle {
-    toolVersion = "10.12.7"
+    toolVersion = "10.15.0"
     configFile = file("../config/checkstyle/checkstyle.xml")
     isIgnoreFailures = false
     maxWarnings = 0
