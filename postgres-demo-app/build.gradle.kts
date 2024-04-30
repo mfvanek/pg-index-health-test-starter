@@ -1,4 +1,5 @@
 plugins {
+    id("pg-index-health-test-starter.java-compilation")
     id("pg-index-health-test-starter.java-conventions")
     alias(libs.plugins.spring.boot.gradlePlugin)
     alias(libs.plugins.spring.dependency.management)
@@ -12,7 +13,7 @@ dependencies {
     implementation("com.google.code.findbugs:jsr305:3.0.2")
     implementation(libs.spring.boot.starter.data.jdbc)
     implementation(libs.pg.index.health.testing)
-    implementation(platform("org.testcontainers:testcontainers-bom:1.19.7"))
+    implementation(platform(libs.testcontainers.bom))
     implementation("org.testcontainers:postgresql")
 
     runtimeOnly(libs.database.postgresql)

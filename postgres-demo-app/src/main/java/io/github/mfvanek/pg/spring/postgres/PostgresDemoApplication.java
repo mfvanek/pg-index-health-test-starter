@@ -16,7 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PostgresDemoApplication {
 
     /**
-     * Demo application with H2 datasource and without PostgreSQL.
+     * Demo application with PostgreSQL datasource.
      */
     public static void main(final String[] args) {
         SpringApplication.run(PostgresDemoApplication.class, args);

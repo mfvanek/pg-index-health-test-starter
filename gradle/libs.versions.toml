@@ -4,6 +4,7 @@ pitest-junit5Plugin = "1.2.1"
 pitest-core = "1.15.3"
 pg-index-health = "0.10.3"
 commons-lang3 = "3.14.0"
+detekt = "1.23.6"
 
 [libraries]
 junit-bom = "org.junit:junit-bom:5.10.2"
@@ -21,7 +22,11 @@ pg-index-health-core = { group = "io.github.mfvanek", name = "pg-index-health", 
 pg-index-health-jdbcConnection = { group = "io.github.mfvanek", name = "pg-index-health-jdbc-connection", version.ref = "pg-index-health" }
 pg-index-health-generator = { group = "io.github.mfvanek", name = "pg-index-health-generator", version.ref = "pg-index-health" }
 pg-index-health-testing = { group = "io.github.mfvanek", name = "pg-index-health-testing", version.ref = "pg-index-health" }
+testcontainers-bom = { group = "org.testcontainers", name = "testcontainers-bom", version = "1.19.7" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+detekt-libraries = { group = "io.gitlab.arturbosch.detekt", name = "detekt-rules-libraries", version.ref = "detekt" }
 
 [plugins]
 spring-boot-gradlePlugin = { id = "org.springframework.boot", version.ref = "spring-boot" }
 spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.4" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

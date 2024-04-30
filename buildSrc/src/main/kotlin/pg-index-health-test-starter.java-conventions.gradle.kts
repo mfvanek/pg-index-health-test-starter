@@ -14,16 +14,10 @@ plugins {
     id("net.ltgt.errorprone")
 }
 
-val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
 dependencies {
-    versionCatalog.findLibrary("junit-bom").ifPresent {
-        testImplementation(platform(it))
-    }
-
     checkstyle("com.thomasjensen.checkstyle.addons:checkstyle-addons:7.0.1")
 
-    errorprone("com.google.errorprone:error_prone_core:2.26.1")
+    errorprone("com.google.errorprone:error_prone_core:2.27.0")
     errorprone("jp.skypencil.errorprone.slf4j:errorprone-slf4j:0.1.23")
 
     spotbugsPlugins("jp.skypencil.findbugs.slf4j:bug-pattern:1.5.0")
@@ -31,12 +25,7 @@ dependencies {
     spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.4")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
 tasks.withType<JavaCompile>().configureEach {
-    options.compilerArgs.add("-parameters")
     options.errorprone {
         disableWarningsInGeneratedCode.set(true)
         disable("Slf4jLoggerShouldBeNonStatic")
@@ -45,9 +34,7 @@ tasks.withType<JavaCompile>().configureEach {
 
 tasks {
     test {
-        useJUnitPlatform()
         dependsOn(checkstyleMain, checkstyleTest, pmdMain, pmdTest, spotbugsMain, spotbugsTest)
-        finalizedBy(jacocoTestReport, jacocoTestCoverageVerification)
     }
 
     jar {
@@ -65,59 +52,9 @@ tasks {
         }
     }
 
-    jacocoTestReport {
-        dependsOn(test)
-        reports {
-            xml.required.set(true)
-            html.required.set(true)
-        }
-    }
-
-    jacocoTestCoverageVerification {
-        dependsOn(jacocoTestReport)
-        violationRules {
-            rule {
-                limit {
-                    counter = "CLASS"
-                    value = "MISSEDCOUNT"
-                    maximum = "0.0".toBigDecimal()
-                }
-            }
-            rule {
-                limit {
-                    counter = "METHOD"
-                    value = "MISSEDCOUNT"
-                    maximum = "0.0".toBigDecimal()
-                }
-            }
-            rule {
-                limit {
-                    counter = "LINE"
-                    value = "MISSEDCOUNT"
-                    maximum = "0.0".toBigDecimal()
-                }
-            }
-            rule {
-                limit {
-                    counter = "INSTRUCTION"
-                    value = "COVEREDRATIO"
-                    minimum = "1.0".toBigDecimal()
-                }
-            }
-        }
-    }
-
-    check {
-        dependsOn(jacocoTestCoverageVerification)
-    }
-
     withType<SonarTask>().configureEach {
         dependsOn(test, jacocoTestReport)
     }
-}
-
-jacoco {
-    toolVersion = "0.8.12"
 }
 
 checkstyle {
@@ -129,7 +66,7 @@ checkstyle {
 }
 
 pmd {
-    toolVersion = "7.0.0"
+    toolVersion = "7.1.0"
     isConsoleOutput = true
     ruleSetFiles = files("../config/pmd/pmd.xml")
     ruleSets = listOf()

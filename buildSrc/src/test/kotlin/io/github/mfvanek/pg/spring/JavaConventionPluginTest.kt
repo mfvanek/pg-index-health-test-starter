@@ -13,6 +13,7 @@ internal class JavaConventionPluginTest : PluginTestBase() {
     fun init() {
         buildFile.appendText("""
             |plugins {
+            |    id("pg-index-health-test-starter.java-compilation")
             |    id("pg-index-health-test-starter.java-conventions")
             |}
             |
