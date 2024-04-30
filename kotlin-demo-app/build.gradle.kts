@@ -26,6 +26,7 @@ dependencies {
     testImplementation(libs.assertj.core)
 
     detektPlugins(libs.detekt.formatting)
+    detektPlugins(libs.detekt.libraries)
 }
 
 tasks.withType<KotlinCompile> {

@@ -16,7 +16,7 @@ import org.testcontainers.containers.JdbcDatabaseContainer
 
 internal const val DATASOURCE_URL_PROP_NAME: String = "spring.datasource.url"
 
-fun addDatasourceUrlIfNeed(jdbcDatabaseContainer: JdbcDatabaseContainer<*>, environment: Environment): Boolean {
+internal fun addDatasourceUrlIfNeed(jdbcDatabaseContainer: JdbcDatabaseContainer<*>, environment: Environment): Boolean {
     if (environment.getProperty(DATASOURCE_URL_PROP_NAME) == null && environment is ConfigurableEnvironment) {
         val mps = environment.propertySources
         mps.addFirst(

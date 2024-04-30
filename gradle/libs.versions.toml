@@ -24,6 +24,7 @@ pg-index-health-generator = { group = "io.github.mfvanek", name = "pg-index-heal
 pg-index-health-testing = { group = "io.github.mfvanek", name = "pg-index-health-testing", version.ref = "pg-index-health" }
 testcontainers-bom = { group = "org.testcontainers", name = "testcontainers-bom", version = "1.19.7" }
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+detekt-libraries = { group = "io.gitlab.arturbosch.detekt", name = "detekt-rules-libraries", version.ref = "detekt" }
 
 [plugins]
 spring-boot-gradlePlugin = { id = "org.springframework.boot", version.ref = "spring-boot" }
