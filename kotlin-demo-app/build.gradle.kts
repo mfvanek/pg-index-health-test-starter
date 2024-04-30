@@ -1,16 +1,18 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
+    kotlin("jvm") version "1.9.23"
+    kotlin("plugin.spring") version "1.9.23"
     id("pg-index-health-test-starter.java-compilation")
-    id("pg-index-health-test-starter.java-conventions")
     alias(libs.plugins.spring.boot.gradlePlugin)
     alias(libs.plugins.spring.dependency.management)
-    id("io.freefair.lombok") version "8.6"
 }
 
 ext["commons-lang3.version"] = libs.versions.commons.lang3.get()
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation(project(":pg-index-health-test-starter"))
-    implementation("com.google.code.findbugs:jsr305:3.0.2")
     implementation(libs.spring.boot.starter.data.jdbc)
     implementation(libs.pg.index.health.testing)
     implementation(platform(libs.testcontainers.bom))
@@ -20,10 +22,11 @@ dependencies {
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.assertj.core)
-
-    spotbugsSlf4j(libs.slf4j.simple)
 }
 
-lombok {
-    version = "1.18.32"
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs += "-Xjsr305=strict"
+        jvmTarget = "11"
+    }
 }

@@ -21,6 +21,7 @@ pg-index-health-core = { group = "io.github.mfvanek", name = "pg-index-health", 
 pg-index-health-jdbcConnection = { group = "io.github.mfvanek", name = "pg-index-health-jdbc-connection", version.ref = "pg-index-health" }
 pg-index-health-generator = { group = "io.github.mfvanek", name = "pg-index-health-generator", version.ref = "pg-index-health" }
 pg-index-health-testing = { group = "io.github.mfvanek", name = "pg-index-health-testing", version.ref = "pg-index-health" }
+testcontainers-bom = { group = "org.testcontainers", name = "testcontainers-bom", version = "1.19.7" }
 
 [plugins]
 spring-boot-gradlePlugin = { id = "org.springframework.boot", version.ref = "spring-boot" }
