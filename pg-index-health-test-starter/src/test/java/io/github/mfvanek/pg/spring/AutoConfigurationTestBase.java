@@ -46,6 +46,7 @@ abstract class AutoConfigurationTestBase {
         "columnsWithSerialTypesCheckOnHost",
         "functionsWithoutDescriptionCheckOnHost",
         "indexesWithBooleanCheckOnHost",
+        "notValidConstraintsCheckOnHost",
         "statisticsMaintenanceOnHost",
         "configurationMaintenanceOnHost"
     );

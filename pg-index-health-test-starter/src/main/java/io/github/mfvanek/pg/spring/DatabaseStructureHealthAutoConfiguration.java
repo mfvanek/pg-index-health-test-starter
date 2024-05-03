@@ -20,6 +20,7 @@ import io.github.mfvanek.pg.checks.host.IndexesWithBooleanCheckOnHost;
 import io.github.mfvanek.pg.checks.host.IndexesWithNullValuesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.IntersectedIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.InvalidIndexesCheckOnHost;
+import io.github.mfvanek.pg.checks.host.NotValidConstraintsCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithBloatCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithMissingIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithoutDescriptionCheckOnHost;
@@ -211,6 +212,14 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnMissingBean
     public IndexesWithBooleanCheckOnHost indexesWithBooleanCheckOnHost(final PgConnection pgConnection) {
         return new IndexesWithBooleanCheckOnHost(pgConnection);
+    }
+
+    @Bean
+    @ConditionalOnClass(NotValidConstraintsCheckOnHost.class)
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public NotValidConstraintsCheckOnHost notValidConstraintsCheckOnHost(final PgConnection pgConnection) {
+        return new NotValidConstraintsCheckOnHost(pgConnection);
     }
 
     @Bean
