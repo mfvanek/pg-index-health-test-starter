@@ -3,6 +3,7 @@ import info.solidsoft.gradle.pitest.PitestTask
 description = "Spring Boot Starter for pg-index-health library"
 
 plugins {
+    id("pg-index-health-test-starter.java-compilation")
     id("pg-index-health-test-starter.java-conventions")
     id("java-library")
     id("maven-publish")
