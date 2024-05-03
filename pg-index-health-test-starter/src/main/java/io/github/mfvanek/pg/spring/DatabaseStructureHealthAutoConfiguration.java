@@ -223,6 +223,7 @@ public class DatabaseStructureHealthAutoConfiguration {
         return new NotValidConstraintsCheckOnHost(pgConnection);
     }
 
+    @Bean
     @ConditionalOnClass(BtreeIndexesOnArrayColumnsCheckOnHost.class)
     @ConditionalOnBean(PgConnection.class)
     @ConditionalOnMissingBean
