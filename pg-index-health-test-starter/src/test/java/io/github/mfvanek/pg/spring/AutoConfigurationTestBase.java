@@ -45,6 +45,8 @@ abstract class AutoConfigurationTestBase {
         "columnsWithJsonTypeCheckOnHost",
         "columnsWithSerialTypesCheckOnHost",
         "functionsWithoutDescriptionCheckOnHost",
+        "indexesWithBooleanCheckOnHost",
+        "notValidConstraintsCheckOnHost",
         "statisticsMaintenanceOnHost",
         "configurationMaintenanceOnHost"
     );

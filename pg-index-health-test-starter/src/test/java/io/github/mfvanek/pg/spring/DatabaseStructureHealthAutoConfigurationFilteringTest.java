@@ -16,9 +16,11 @@ import io.github.mfvanek.pg.checks.host.DuplicatedIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ForeignKeysNotCoveredWithIndexCheckOnHost;
 import io.github.mfvanek.pg.checks.host.FunctionsWithoutDescriptionCheckOnHost;
 import io.github.mfvanek.pg.checks.host.IndexesWithBloatCheckOnHost;
+import io.github.mfvanek.pg.checks.host.IndexesWithBooleanCheckOnHost;
 import io.github.mfvanek.pg.checks.host.IndexesWithNullValuesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.IntersectedIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.InvalidIndexesCheckOnHost;
+import io.github.mfvanek.pg.checks.host.NotValidConstraintsCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithBloatCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithMissingIndexesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.TablesWithoutDescriptionCheckOnHost;
@@ -52,6 +54,8 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
         ColumnsWithJsonTypeCheckOnHost.class,
         ColumnsWithSerialTypesCheckOnHost.class,
         FunctionsWithoutDescriptionCheckOnHost.class,
+        IndexesWithBooleanCheckOnHost.class,
+        NotValidConstraintsCheckOnHost.class,
         StatisticsMaintenanceOnHost.class,
         ConfigurationMaintenanceOnHost.class})
     void withoutClass(final Class<?> type) {
