@@ -2,7 +2,7 @@
 spring-boot = "2.7.18"
 pitest-junit5Plugin = "1.2.1"
 pitest-core = "1.15.3"
-pg-index-health = "0.10.4"
+pg-index-health = "0.11.0"
 commons-lang3 = "3.14.0"
 detekt = "1.23.6"
 
