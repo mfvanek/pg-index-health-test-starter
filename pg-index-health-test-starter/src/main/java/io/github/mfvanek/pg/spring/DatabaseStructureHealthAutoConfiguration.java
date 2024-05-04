@@ -9,6 +9,7 @@
 
 package io.github.mfvanek.pg.spring;
 
+import io.github.mfvanek.pg.checks.host.BtreeIndexesOnArrayColumnsCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ColumnsWithJsonTypeCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ColumnsWithSerialTypesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ColumnsWithoutDescriptionCheckOnHost;
@@ -220,6 +221,14 @@ public class DatabaseStructureHealthAutoConfiguration {
     @ConditionalOnMissingBean
     public NotValidConstraintsCheckOnHost notValidConstraintsCheckOnHost(final PgConnection pgConnection) {
         return new NotValidConstraintsCheckOnHost(pgConnection);
+    }
+
+    @Bean
+    @ConditionalOnClass(BtreeIndexesOnArrayColumnsCheckOnHost.class)
+    @ConditionalOnBean(PgConnection.class)
+    @ConditionalOnMissingBean
+    public BtreeIndexesOnArrayColumnsCheckOnHost btreeIndexesOnArrayColumnsCheckOnHost(final PgConnection pgConnection) {
+        return new BtreeIndexesOnArrayColumnsCheckOnHost(pgConnection);
     }
 
     @Bean

@@ -47,6 +47,7 @@ abstract class AutoConfigurationTestBase {
         "functionsWithoutDescriptionCheckOnHost",
         "indexesWithBooleanCheckOnHost",
         "notValidConstraintsCheckOnHost",
+        "btreeIndexesOnArrayColumnsCheckOnHost",
         "statisticsMaintenanceOnHost",
         "configurationMaintenanceOnHost"
     );

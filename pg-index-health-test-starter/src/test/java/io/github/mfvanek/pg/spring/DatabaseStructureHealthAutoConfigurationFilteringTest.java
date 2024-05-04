@@ -9,6 +9,7 @@
 
 package io.github.mfvanek.pg.spring;
 
+import io.github.mfvanek.pg.checks.host.BtreeIndexesOnArrayColumnsCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ColumnsWithJsonTypeCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ColumnsWithSerialTypesCheckOnHost;
 import io.github.mfvanek.pg.checks.host.ColumnsWithoutDescriptionCheckOnHost;
@@ -56,6 +57,7 @@ class DatabaseStructureHealthAutoConfigurationFilteringTest extends AutoConfigur
         FunctionsWithoutDescriptionCheckOnHost.class,
         IndexesWithBooleanCheckOnHost.class,
         NotValidConstraintsCheckOnHost.class,
+        BtreeIndexesOnArrayColumnsCheckOnHost.class,
         StatisticsMaintenanceOnHost.class,
         ConfigurationMaintenanceOnHost.class})
     void withoutClass(final Class<?> type) {
