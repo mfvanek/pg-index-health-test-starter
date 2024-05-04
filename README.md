@@ -59,7 +59,7 @@ For **Java 8** compatible version take a look at release [0.7.0](https://github.
 | 2.4.x       | 8       | 0.3.x — 0.4.x                |
 | 2.5.x       | 8       | 0.5.x — 0.6.x                |
 | 2.6.x       | 8       | 0.7.x                        |
-| 2.7.x       | 11      | 0.8.x — 0.10.x               |
+| 2.7.x       | 11      | 0.8.x — 0.11.x               |
 
 #### Spring Boot 3 compatibility
 
