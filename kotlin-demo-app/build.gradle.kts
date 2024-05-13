@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.9.23"
-    kotlin("plugin.spring") version "1.9.23"
+    kotlin("plugin.spring") version "1.9.24"
     id("pg-index-health-test-starter.java-compilation")
     alias(libs.plugins.spring.boot.gradlePlugin)
     alias(libs.plugins.spring.dependency.management)
