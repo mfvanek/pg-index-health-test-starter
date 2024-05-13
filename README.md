@@ -1,5 +1,11 @@
 # pg-index-health-test-starter
 
+---
+
+All codebase moved to the [main repository](https://github.com/mfvanek/pg-index-health).
+
+---
+
 Spring Boot Starter for using [pg-index-health](https://github.com/mfvanek/pg-index-health) library in tests.
 
 [![Java CI](https://github.com/mfvanek/pg-index-health-test-starter/workflows/Java%20CI/badge.svg)](https://github.com/mfvanek/pg-index-health-test-starter/actions "Java CI")
